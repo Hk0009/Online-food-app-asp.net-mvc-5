@@ -1,0 +1,204 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="foodieModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="cart">
+    <Key>
+      <PropertyRef Name="CartId" />
+    </Key>
+    <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Date" Type="smalldatetime" />
+    <Property Name="PersonlId" Type="int" />
+    <Property Name="Total" Type="int" />
+  </EntityType>
+  <EntityType Name="FoodCategories">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="varchar" MaxLength="100" />
+    <Property Name="ImageUrl" Type="varchar(max)" />
+    <Property Name="Date" Type="smalldatetime" />
+    <Property Name="RestaurantID" Type="int" />
+  </EntityType>
+  <EntityType Name="Orders">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="ProductID" Type="int" />
+    <Property Name="Date" Type="smalldatetime" />
+    <Property Name="PersonlId" Type="int" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="PaymentID" />
+    </Key>
+    <Property Name="PaymentID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Mode" Type="varchar" MaxLength="100" />
+    <Property Name="PersonlId" Type="int" />
+  </EntityType>
+  <EntityType Name="PersonalInfo">
+    <Key>
+      <PropertyRef Name="PersonlId" />
+    </Key>
+    <Property Name="PersonlId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PersonName" Type="varchar" MaxLength="100" />
+    <Property Name="Mobile_No" Type="varchar" MaxLength="100" />
+    <Property Name="Contact" Type="varchar" MaxLength="100" />
+    <Property Name="Adress" Type="varchar" MaxLength="300" />
+    <Property Name="Pincode" Type="int" />
+  </EntityType>
+  <EntityType Name="Products">
+    <Key>
+      <PropertyRef Name="ProductID" />
+    </Key>
+    <Property Name="ProductID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductName" Type="varchar" MaxLength="100" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="Price" Type="int" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="ImageUrl" Type="varchar" MaxLength="100" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="Date" Type="smalldatetime" />
+  </EntityType>
+  <EntityType Name="RestaurantInfo">
+    <Key>
+      <PropertyRef Name="RestaurantID" />
+    </Key>
+    <Property Name="RestaurantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RestaurantName" Type="varchar" MaxLength="100" />
+    <Property Name="Contact" Type="varchar" MaxLength="100" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <Association Name="FK__cart__PersonlId__403A8C7D">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+    <End Role="cart" Type="Self.cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="PersonlId" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="PersonlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__cart__ProductID__3F466844">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="cart" Type="Self.cart" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="cart">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__FoodCateg__Resta__29572725">
+    <End Role="RestaurantInfo" Type="Self.RestaurantInfo" Multiplicity="0..1" />
+    <End Role="FoodCategories" Type="Self.FoodCategories" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RestaurantInfo">
+        <PropertyRef Name="RestaurantID" />
+      </Principal>
+      <Dependent Role="FoodCategories">
+        <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__PersonlI__3C69FB99">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="PersonlId" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="PersonlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Orders__ProductI__3B75D760">
+    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Products">
+        <PropertyRef Name="ProductID" />
+      </Principal>
+      <Dependent Role="Orders">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Payment__Personl__4222D4EF">
+    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
+    <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="PersonlId" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="PersonlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Catego__2C3393D0">
+    <End Role="FoodCategories" Type="Self.FoodCategories" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="FoodCategories">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="foodieModelStoreContainer">
+    <EntitySet Name="cart" EntityType="Self.cart" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="FoodCategories" EntityType="Self.FoodCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RestaurantInfo" EntityType="Self.RestaurantInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Payment" EntityType="Self.Payment" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [Payment].[PaymentID] AS [PaymentID], 
+    [Payment].[Mode] AS [Mode], 
+    [Payment].[PersonlId] AS [PersonlId]
+    FROM [dbo].[Payment] AS [Payment]</DefiningQuery>
+    </EntitySet>
+    <AssociationSet Name="FK__cart__PersonlId__403A8C7D" Association="Self.FK__cart__PersonlId__403A8C7D">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+      <End Role="cart" EntitySet="cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__cart__ProductID__3F466844" Association="Self.FK__cart__ProductID__3F466844">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="cart" EntitySet="cart" />
+    </AssociationSet>
+    <AssociationSet Name="FK__FoodCateg__Resta__29572725" Association="Self.FK__FoodCateg__Resta__29572725">
+      <End Role="RestaurantInfo" EntitySet="RestaurantInfo" />
+      <End Role="FoodCategories" EntitySet="FoodCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__PersonlI__3C69FB99" Association="Self.FK__Orders__PersonlI__3C69FB99">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Orders__ProductI__3B75D760" Association="Self.FK__Orders__ProductI__3B75D760">
+      <End Role="Products" EntitySet="Products" />
+      <End Role="Orders" EntitySet="Orders" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Payment__Personl__4222D4EF" Association="Self.FK__Payment__Personl__4222D4EF">
+      <End Role="PersonalInfo" EntitySet="PersonalInfo" />
+      <End Role="Payment" EntitySet="Payment" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Catego__2C3393D0" Association="Self.FK__Products__Catego__2C3393D0">
+      <End Role="FoodCategories" EntitySet="FoodCategories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

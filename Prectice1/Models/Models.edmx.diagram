@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="d7a3e09ee9e34d36b2fd71fff01bcb30" Name="Diagram1" ZoomLevel="57">
+        <EntityTypeShape EntityType="foodieModel.cart" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="foodieModel.FoodCategory" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="foodieModel.Order" Width="1.5" PointX="10.5" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="foodieModel.PersonalInfo" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="foodieModel.Product" Width="1.5" PointX="5.375" PointY="2.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="foodieModel.RestaurantInfo" Width="1.5" PointX="0.75" PointY="3" IsExpanded="true" />
+        <EntityTypeShape EntityType="foodieModel.Payment" Width="1.5" PointX="7.5" PointY="8" IsExpanded="true" />
+        <AssociationConnector Association="foodieModel.FK__cart__PersonlId__403A8C7D" ManuallyRouted="false" />
+        <AssociationConnector Association="foodieModel.FK__cart__ProductID__3F466844" ManuallyRouted="false" />
+        <AssociationConnector Association="foodieModel.FK__FoodCateg__Resta__29572725" ManuallyRouted="false" />
+        <AssociationConnector Association="foodieModel.FK__Products__Catego__2C3393D0" ManuallyRouted="false" />
+        <AssociationConnector Association="foodieModel.FK__Orders__PersonlI__3C69FB99" ManuallyRouted="false" />
+        <AssociationConnector Association="foodieModel.FK__Orders__ProductI__3B75D760" ManuallyRouted="false" />
+        <AssociationConnector Association="foodieModel.FK__Payment__Personl__4222D4EF" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
