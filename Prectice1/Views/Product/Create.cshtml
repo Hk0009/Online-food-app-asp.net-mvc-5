@@ -1,4 +1,4 @@
-﻿@model Prectice1.Models.Product
+﻿@model Prectice1.CustomModels.ProductViewModel
 
 @{
     ViewBag.Title = "Create";
@@ -7,57 +7,66 @@
 <h2>Create</h2>
 
 
+
 @using (Html.BeginForm("Create", "Product", FormMethod.Post, new { @class = "form-horizontal", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
-    
-<div class="form-horizontal">
-    <h4>Product</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    <div class=“form-group”>
-        @Html.LabelFor(m => m.ProductName)
-        @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
-    </div>
-    <div class=“form-group”>
-        @Html.LabelFor(m => m.Description)
-        @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
-    </div>
-    <div class=“form-group”>
-        @Html.LabelFor(m => m.Price)
-        @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
-    </div>
-    <div class=“form-group”>
-        @Html.LabelFor(m => m.Quantity)
-        @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
-    </div>
-    <div class=“form-group”>
-        @Html.LabelFor(m => m.CategoryId)
-        @Html.TextBoxFor(m => m.CategoryId, new { @class = "form-control" })
-    </div>
-    <div class=“form-group”>
-        @Html.LabelFor(m => m.Date)
-        @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
-    </div>
-    <div class=“form-group”>
-        @Html.LabelFor(m => m.ImageUrl)
-        @* @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control" })*@
-        
-        <input type="file" id="ImageFile" name="ImageFile" class="btn btn-default">
-           
-       
-    </div>
+    <div class="form-horizontal">
+        <h4>Product</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class=“form-group”>
+            @Html.LabelFor(m => m.ProductName)
+            @Html.TextBoxFor(m => m.ProductName, new { @class = "form-control" })
+        </div>
+        <div class=“form-group”>
+            @Html.LabelFor(m => m.Description)
+            @Html.TextBoxFor(m => m.Description, new { @class = "form-control" })
+        </div>
+        <div class=“form-group”>
+            @Html.LabelFor(m => m.Price)
+            @Html.TextBoxFor(m => m.Price, new { @class = "form-control" })
+        </div>
+        <div class=“form-group”>
+            @Html.LabelFor(m => m.Quantity)
+            @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
+        </div>
+        <div class=“form-group”>
+            @Html.LabelFor(m => m.CategoryId)
+            @Html.TextBoxFor(m => m.CategoryId, new { @class = "form-control" })
+        </div>
+        <div class=“form-group”>
+            @Html.LabelFor(m => m.Date)
+            @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
+        </div>
+        <div class=“form-group”>
+            @Html.LabelFor(m => m.ImageUrl)
+            @* @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control" })*@
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Create" class="btn btn-default" />
+            <input type="file" id="ImageFile" name="ImageFile" class="btn btn-default">
+
+
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                <input type="submit" value="Create" class="btn btn-default" />
+
+
+            </div>
         </div>
     </div>
-</div>
 }
 
+
+
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    <h4>Please Click Below to Create new Category</h4>
+    <a href='@Url.Action("Create", "RestaurantCategory")' class="btn btn-success">Back To Category</a>
+
+</div>
+<div>
+    <a href='@Url.Action("Index", "Restaurant")' class="btn btn-danger">Back To Index</a>
 </div>
 
 @section Scripts {

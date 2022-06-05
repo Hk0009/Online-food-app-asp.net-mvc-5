@@ -24,17 +24,6 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
-    <EntitySetMapping Name="Orders">
-      <EntityTypeMapping TypeName="foodieModel.Order">
-        <MappingFragment StoreEntitySet="Orders">
-          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
-          <ScalarProperty Name="Quantity" ColumnName="Quantity" />
-          <ScalarProperty Name="ProductID" ColumnName="ProductID" />
-          <ScalarProperty Name="Date" ColumnName="Date" />
-          <ScalarProperty Name="PersonlId" ColumnName="PersonlId" />
-        </MappingFragment>
-      </EntityTypeMapping>
-    </EntitySetMapping>
     <EntitySetMapping Name="PersonalInfoes">
       <EntityTypeMapping TypeName="foodieModel.PersonalInfo">
         <MappingFragment StoreEntitySet="PersonalInfo">
@@ -77,6 +66,44 @@
           <ScalarProperty Name="PaymentID" ColumnName="PaymentID" />
           <ScalarProperty Name="Mode" ColumnName="Mode" />
           <ScalarProperty Name="PersonlId" ColumnName="PersonlId" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Logins">
+      <EntityTypeMapping TypeName="foodieModel.Login">
+        <MappingFragment StoreEntitySet="Login">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Role" ColumnName="Role" />
+          <ScalarProperty Name="Password" ColumnName="Password" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="roles">
+      <EntityTypeMapping TypeName="foodieModel.role">
+        <MappingFragment StoreEntitySet="role">
+          <ScalarProperty Name="Role1" ColumnName="Role" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="role1">
+      <EntityTypeMapping TypeName="foodieModel.role1">
+        <MappingFragment StoreEntitySet="roles">
+          <ScalarProperty Name="Roles" ColumnName="Roles" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Order1">
+      <EntityTypeMapping TypeName="foodieModel.Order1">
+        <MappingFragment StoreEntitySet="Orders">
+          <ScalarProperty Name="Total" ColumnName="Total" />
+          <ScalarProperty Name="PersonlId" ColumnName="PersonlId" />
+          <ScalarProperty Name="Date" ColumnName="Date" />
+          <ScalarProperty Name="OrderId" ColumnName="OrderId" />
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>

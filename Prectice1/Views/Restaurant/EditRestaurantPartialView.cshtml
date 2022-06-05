@@ -1,0 +1,67 @@
+﻿@model Prectice1.Models.RestaurantInfo
+
+
+
+
+
+<div>
+
+    <form id="myForm">
+        @Html.HiddenFor(m => m.RestaurantID)
+
+        @Html.TextBoxFor(model => model.RestaurantName, new { @class = "form-control", @placeholder = "RestaurantName" })
+        <td>
+            
+        </td>
+        @Html.TextBoxFor(model => model.Contact, new { @class = "form-control", @placeholder = "Contact " })
+        <td>
+
+        </td>
+
+        @Html.TextBoxFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
+        <td>
+
+        </td>
+
+        <a href="#" id="btnSubmit" class="btn btn-success btn-block">
+         update
+        </a>
+
+    </form>
+
+
+
+</div>
+
+
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+
+          @*  $("#loaderDiv").show();*@
+
+            var myformdata = $("#myForm").serialize();
+
+            $.ajax({
+
+                type: "Post",
+                url: '@Url.Action("Edit", "Restaurant")',
+                data: myformdata,
+                success: function (data) {
+                   // $("#loaderDiv").hide();
+                   // $("#myModal").modal("hide");
+                    //withot window location href page is not getting refreshed on its own
+                    location.reload();
+
+                }
+
+            })
+        })
+
+    })
+
+
+</script>

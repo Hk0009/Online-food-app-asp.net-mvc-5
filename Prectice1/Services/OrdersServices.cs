@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Prectice1.Models;
+using Prectice1.CustomModels;
 
 namespace Prectice1.Services
 {
@@ -13,33 +14,21 @@ namespace Prectice1.Services
         {
             orderContext = _orderContext;   
         }   
-        public Order create(Order _order)
+       public IQueryable<Order1> Get()
         {
-            Order order = new Order();
-            order.Quantity = _order.Quantity;
-            return order;
+            var getOrder= from e in orderContext.Order1
+                          select e;
+            return getOrder;
+            
         }
-        public Order GetById(int id)
+        public Order1 GetById(int id)
         {
-            return orderContext.Orders.Where(c => c.OrderId == id).FirstOrDefault();
+            var orderGetById= (from e in orderContext.Order1
+                              where e.OrderId == id
+                              select e).FirstOrDefault();
+            return orderGetById;
         }
-        public IEnumerable<Order> Get()
-        {
-            return orderContext.Orders.ToList();
-        }
-        public Order Delete(int id)
-        {
-            var deleteOrder= orderContext.Orders.Where(c => c.OrderId == id).FirstOrDefault();  
-            orderContext.Orders.Remove(deleteOrder);
-            orderContext.SaveChanges(); 
-            return deleteOrder;
-        }
-        public Order edit(int id ,Order order)
-        {
-            var editOrder = orderContext.Orders.Where(c => c.OrderId == id).FirstOrDefault();
-            editOrder.Quantity = order.Quantity;
-            editOrder.Date = order.Date;
-            return editOrder;   
-        }
+      
+        
     }
 }

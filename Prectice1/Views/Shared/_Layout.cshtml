@@ -18,15 +18,30 @@
                 </button>
 
                 @Html.ActionLink("Application name", "Index", "Home", new { area = " " }, new { @class = "navbar-brand" })
-               @Html.ActionLink("Restaurant", "Index", "Restaurant", new { area = " " }, new { @class = "navbar-brand" })
+               
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Index", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Restaurant", "Index", "RestaurantCategory")</li>
 
+
+                    @if (User.Identity.IsAuthenticated)
+
+                    {
+                        if (User.IsInRole("admin"))
+                        {
+                            <li>@Html.ActionLink("Restaurant", "Index", "Restaurant")</li>
+                            <li>@Html.ActionLink("PersonalInfo", "Index", "PersonalInfo")</li>
+                        }
+                        if (User.IsInRole("User"))
+                        {
+                            <li>@Html.ActionLink("PersonalInfo", "Index", "PersonalInfo")</li>
+                        }
+                        <li><a>Dear -@User.Identity.Name</a></li>
+
+
+                        <li>@Html.ActionLink("Logout", "Logout", "Auth")</li>
+                    }
+                    <li>@Html.ActionLink("Login", "Login", "Auth")</li>
                 </ul>
             </div>
         </div>

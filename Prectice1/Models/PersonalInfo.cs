@@ -18,8 +18,8 @@ namespace Prectice1.Models
         public PersonalInfo()
         {
             this.carts = new HashSet<cart>();
-            this.Orders = new HashSet<Order>();
             this.Payments = new HashSet<Payment>();
+            this.Orders1 = new HashSet<Order1>();
         }
     
         public int PersonlId { get; set; }
@@ -32,8 +32,8 @@ namespace Prectice1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cart> carts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Order> Orders { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Payment> Payments { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Order1> Orders1 { get; set; }
     }
 }

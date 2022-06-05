@@ -81,3 +81,5 @@ C:\Users\Coditas\source\repos\Prectice1\Prectice1\bin\EntityFramework.dll
 C:\Users\Coditas\source\repos\Prectice1\Prectice1\bin\EntityFramework.SqlServer.dll
 C:\Users\Coditas\source\repos\Prectice1\Prectice1\bin\EntityFramework.xml
 C:\Users\Coditas\source\repos\Prectice1\Prectice1\bin\EntityFramework.SqlServer.xml
+C:\Users\Coditas\source\repos\Prectice1\Prectice1\bin\DocumentFormat.OpenXml.dll
+C:\Users\Coditas\source\repos\Prectice1\Prectice1\bin\DocumentFormat.OpenXml.xml

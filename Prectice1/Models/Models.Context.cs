@@ -27,10 +27,13 @@ namespace Prectice1.Models
     
         public virtual DbSet<cart> carts { get; set; }
         public virtual DbSet<FoodCategory> FoodCategories { get; set; }
-        public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<PersonalInfo> PersonalInfoes { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<RestaurantInfo> RestaurantInfoes { get; set; }
         public virtual DbSet<Payment> Payments { get; set; }
+        public virtual DbSet<Login> Logins { get; set; }
+        public virtual DbSet<role> roles { get; set; }
+        public virtual DbSet<role1> role1 { get; set; }
+        public virtual DbSet<Order1> Order1 { get; set; }
     }
 }

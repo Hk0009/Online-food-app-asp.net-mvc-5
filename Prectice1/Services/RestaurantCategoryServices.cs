@@ -6,6 +6,7 @@ using Prectice1.Models;
 using Prectice1.Services;
 using Prectice1.Controllers;
 using System.IO;
+using Prectice1.CustomModels;
 
 namespace Prectice1.Services
 
@@ -17,19 +18,20 @@ namespace Prectice1.Services
         {
             _context = new foodieEntities1();
         }
-        public FoodCategory create(FoodCategory foodCategory,HttpPostedFileBase ImageFile)
+
+        public FoodCategory create(FoodCategoryViewModel foodCategory,HttpPostedFileBase ImageFile)
         {
             ImageUploadService imageUploadService = new ImageUploadService();
-
+            //var restaurantID = _context.RestaurantInfoes.Max(x => x.RestaurantID);
             string path = imageUploadService.uploadimage(ImageFile);
             FoodCategory foodCategories = new FoodCategory();
             foodCategories.CategoryName = foodCategory.CategoryName;
             foodCategories.ImageUrl = path;
-            foodCategories.Date = foodCategory.Date;
-            foodCategories.RestaurantID = foodCategory.RestaurantID;
-            _context.FoodCategories.Add(foodCategories);
-            _context.SaveChanges();
-            return null;
+            foodCategories.Date = DateTime.Now;
+           //foodCategories.RestaurantID  =restaurantID;
+            
+            
+            return foodCategories;
   
         }
        

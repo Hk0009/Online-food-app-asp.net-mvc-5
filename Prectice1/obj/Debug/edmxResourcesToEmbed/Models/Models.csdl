@@ -25,18 +25,6 @@
     <NavigationProperty Name="RestaurantInfo" Relationship="Self.FK__FoodCateg__Resta__29572725" FromRole="FoodCategories" ToRole="RestaurantInfo" />
     <NavigationProperty Name="Products" Relationship="Self.FK__Products__Catego__2C3393D0" FromRole="FoodCategories" ToRole="Products" />
   </EntityType>
-  <EntityType Name="Order">
-    <Key>
-      <PropertyRef Name="OrderId" />
-    </Key>
-    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Quantity" Type="Int32" />
-    <Property Name="ProductID" Type="Int32" />
-    <Property Name="Date" Type="DateTime" Precision="0" />
-    <Property Name="PersonlId" Type="Int32" />
-    <NavigationProperty Name="PersonalInfo" Relationship="Self.FK__Orders__PersonlI__3C69FB99" FromRole="Orders" ToRole="PersonalInfo" />
-    <NavigationProperty Name="Product" Relationship="Self.FK__Orders__ProductI__3B75D760" FromRole="Orders" ToRole="Products" />
-  </EntityType>
   <EntityType Name="PersonalInfo">
     <Key>
       <PropertyRef Name="PersonlId" />
@@ -48,8 +36,8 @@
     <Property Name="Adress" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
     <Property Name="Pincode" Type="Int32" />
     <NavigationProperty Name="carts" Relationship="Self.FK__cart__PersonlId__403A8C7D" FromRole="PersonalInfo" ToRole="cart" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__PersonlI__3C69FB99" FromRole="PersonalInfo" ToRole="Orders" />
     <NavigationProperty Name="Payments" Relationship="Self.FK__Payment__Personl__4222D4EF" FromRole="PersonalInfo" ToRole="Payment" />
+    <NavigationProperty Name="Orders1" Relationship="foodieModel.FK__Orders__PersonlI__5FB337D6" FromRole="PersonalInfo" ToRole="Order1" />
   </EntityType>
   <EntityType Name="Product">
     <Key>
@@ -65,7 +53,6 @@
     <Property Name="Date" Type="DateTime" Precision="0" />
     <NavigationProperty Name="carts" Relationship="Self.FK__cart__ProductID__3F466844" FromRole="Products" ToRole="cart" />
     <NavigationProperty Name="FoodCategory" Relationship="Self.FK__Products__Catego__2C3393D0" FromRole="Products" ToRole="FoodCategories" />
-    <NavigationProperty Name="Orders" Relationship="Self.FK__Orders__ProductI__3B75D760" FromRole="Products" ToRole="Orders" />
   </EntityType>
   <EntityType Name="RestaurantInfo">
     <Key>
@@ -134,30 +121,6 @@
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Orders__PersonlI__3C69FB99">
-    <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
-    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="PersonalInfo">
-        <PropertyRef Name="PersonlId" />
-      </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="PersonlId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Orders__ProductI__3B75D760">
-    <End Role="Products" Type="Self.Product" Multiplicity="0..1" />
-    <End Role="Orders" Type="Self.Order" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="ProductID" />
-      </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="ProductID" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <Association Name="FK__Payment__Personl__4222D4EF">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="Payment" Type="Self.Payment" Multiplicity="*" />
@@ -173,7 +136,6 @@
   <EntityContainer Name="foodieEntities1" annotation:LazyLoadingEnabled="true">
     <EntitySet Name="carts" EntityType="Self.cart" />
     <EntitySet Name="FoodCategories" EntityType="Self.FoodCategory" />
-    <EntitySet Name="Orders" EntityType="Self.Order" />
     <EntitySet Name="PersonalInfoes" EntityType="Self.PersonalInfo" />
     <EntitySet Name="Products" EntityType="Self.Product" />
     <EntitySet Name="RestaurantInfoes" EntityType="Self.RestaurantInfo" />
@@ -194,17 +156,100 @@
       <End Role="FoodCategories" EntitySet="FoodCategories" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
-    <AssociationSet Name="FK__Orders__PersonlI__3C69FB99" Association="Self.FK__Orders__PersonlI__3C69FB99">
-      <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Orders__ProductI__3B75D760" Association="Self.FK__Orders__ProductI__3B75D760">
-      <End Role="Products" EntitySet="Products" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
     <AssociationSet Name="FK__Payment__Personl__4222D4EF" Association="Self.FK__Payment__Personl__4222D4EF">
       <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
       <End Role="Payment" EntitySet="Payments" />
     </AssociationSet>
+    <EntitySet Name="Logins" EntityType="foodieModel.Login" />
+    <EntitySet Name="roles" EntityType="foodieModel.role" />
+    <AssociationSet Name="FK__role__UserId__52593CB8" Association="foodieModel.FK__role__UserId__52593CB8">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="role" EntitySet="roles" />
+    </AssociationSet>
+    <EntitySet Name="role1" EntityType="foodieModel.role1" />
+    <AssociationSet Name="FK_roles_Login" Association="foodieModel.FK_roles_Login">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="role1" EntitySet="role1" />
+    </AssociationSet>
+    <EntitySet Name="Order1" EntityType="foodieModel.Order1" />
+    <AssociationSet Name="FK__Orders__PersonlI__5FB337D6" Association="foodieModel.FK__Orders__PersonlI__5FB337D6">
+      <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
+      <End Role="Order1" EntitySet="Order1" />
+    </AssociationSet>
   </EntityContainer>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="roles" Relationship="foodieModel.FK__role__UserId__52593CB8" FromRole="Login" ToRole="role" />
+    <NavigationProperty Name="roles1" Relationship="foodieModel.FK_roles_Login" FromRole="Login" ToRole="role1" />
+  </EntityType>
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Role1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Login" Relationship="foodieModel.FK__role__UserId__52593CB8" FromRole="role" ToRole="Login" />
+  </EntityType>
+  <Association Name="FK__role__UserId__52593CB8">
+    <End Type="foodieModel.Login" Role="Login" Multiplicity="0..1" />
+    <End Type="foodieModel.role" Role="role" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="role">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="role1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" />
+    <Property Name="Roles" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Login" Relationship="foodieModel.FK_roles_Login" FromRole="role1" ToRole="Login" />
+  </EntityType>
+  <Association Name="FK_roles_Login">
+    <End Type="foodieModel.Login" Role="Login" Multiplicity="0..1" />
+    <End Type="foodieModel.role1" Role="role1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="role1">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Order1">
+    <Key>
+      <PropertyRef Name="OrderId" />
+    </Key>
+    <Property Name="OrderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <Property Name="PersonlId" Type="Int32" />
+    <Property Name="Total" Type="Int32" />
+    <NavigationProperty Name="PersonalInfo" Relationship="foodieModel.FK__Orders__PersonlI__5FB337D6" FromRole="Order1" ToRole="PersonalInfo" />
+  </EntityType>
+  <Association Name="FK__Orders__PersonlI__5FB337D6">
+    <End Type="foodieModel.PersonalInfo" Role="PersonalInfo" Multiplicity="0..1" />
+    <End Type="foodieModel.Order1" Role="Order1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PersonalInfo">
+        <PropertyRef Name="PersonlId" />
+      </Principal>
+      <Dependent Role="Order1">
+        <PropertyRef Name="PersonlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
 </Schema>

@@ -1,42 +1,116 @@
-﻿@model Prectice1.Models.RestaurantInfo
+﻿@using Prectice1.CustomModels
+@model IEnumerable<Prectice1.CustomModels.RestaurantDetailsViewModel>
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
+@*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+   @* <script src="~/Scripts/bootstrap.min.js"></script>*@
+< class="table">
 
-<h2>Details</h2>
 
-<div>
-    <h4>RestaurantInfo</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.RestaurantName)
-        </dt>
+    <tr>
+        <th></th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestaurantInfos.RestaurantID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestaurantInfos.RestaurantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.RestaurantInfos.Contact)
+        </th>
+    </tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.RestaurantName)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Contact)
-        </dt>
+    @foreach (RestaurantDetailsViewModel customer in Model)
+    {
+        <tr>
+            <td>
+                <img src="~/Images/plus.png" />
+                <div style="display:none">
+                    <table class="table">
+                        <tr>
+                            <th>CategoryId</th>
+                            <th>CategoryName</th>
+                        </tr>
+                        @foreach (var order in customer.FoodCategorys)
+                        {
+                            <tr>
+                                <td>@order.CategoryId</td>
+                                <td>@order.CategoryName</td>
+                            </tr>
+                        }
+       
+                </div>
+            </td>
+        <tr>
 
-        <dd>
-            @Html.DisplayFor(model => model.Contact)
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
+            <td>
+                @Html.DisplayFor(modelItem => customer.RestaurantInfos.RestaurantID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => customer.RestaurantInfos.RestaurantName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => customer.RestaurantInfos.Contact)
+            </td>
+            <td>
+                <a href="#" class="btn btn-success" onclick="Edit(@customer.RestaurantInfos.RestaurantID)">Edit</a>|
+                @Html.ActionLink("Details", "Details", new { id = customer.RestaurantInfos.RestaurantID }) |
 
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
+                <a href="@Url.Action("Delete", new {id = customer.RestaurantInfos.RestaurantID})" class="btn btn-danger" onclick="return confirm ('Are you sure want to delete blog?');">
+                    Delete
+                </a>
+            </td>
+        </tr>
+        </tr>
+    }
+    <div class="modal fade" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">Edit Restaurant</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv1">
 
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.RestaurantID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <input type="hidden" id="hiddenRestaurantId" />
+</table>
+<script>
+
+    var Edit = function (restaurantId) {
+
+        var url = "/Restaurant/Edit/" + restaurantId;
+
+        $("#myModalBodyDiv1").load(url, function () {
+            $("#myModal1").modal("show");
+
+        })
+
+    }
+</script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript">
+    //Assign Click event to Plus Image.
+    $("body").on("click", "img[src*='plus.png']", function () {
+        $(this).closest("tr").after("<tr><td></td><td colspan = '999'>" + $(this).next().html() + "</td></tr>");
+        $(this).attr("src", "/images/minus.png");
+    });
+    //Assign Click event to Minus Image.
+    $("body").on("click", "img[src*='minus.png']", function () {
+        $(this).attr("src", "/images/plus.png");
+        $(this).closest("tr").next().remove();
+    });
+</script>

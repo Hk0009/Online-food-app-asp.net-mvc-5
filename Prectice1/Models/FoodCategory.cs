@@ -11,8 +11,7 @@ namespace Prectice1.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.Web;
-
+    
     public partial class FoodCategory
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -24,7 +23,6 @@ namespace Prectice1.Models
         public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string ImageUrl { get; set; }
-        public HttpPostedFileBase ImageFile { get; set; }   
         public Nullable<System.DateTime> Date { get; set; }
         public Nullable<int> RestaurantID { get; set; }
     

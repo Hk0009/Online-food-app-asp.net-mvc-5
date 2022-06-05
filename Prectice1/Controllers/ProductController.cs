@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Prectice1.Models;
 using Prectice1.Services;
-
+using Prectice1.CustomModels;
 namespace Prectice1.Controllers
 {
     public class ProductController : Controller
@@ -13,10 +13,11 @@ namespace Prectice1.Controllers
         // GET: Restaurant
 
         private readonly ProductServices _productServices;
+        private readonly foodieEntities1 _productContext;
         // if we will not call it in constructor then it will  throw exception that the context is null
         public ProductController()
         {
-
+            _productContext = new foodieEntities1();
             _productServices = new ProductServices();
         }
 
@@ -35,24 +36,28 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(Product product,HttpPostedFileBase ImageFile)
+        public ActionResult Create(ProductViewModel product,HttpPostedFileBase ImageFile)
         {
             try
 
 
             {
                 // foodieEntities1 context = new foodieEntities1();
+                FoodCategory foodCategory = (FoodCategory)Session["foodCategoryId"];
                 var productCreate = _productServices.create(product, ImageFile);
-                /*  _context.RestaurantInfoes.Add(restaurant);
-                  _context.SaveChanges();
-  */
+                productCreate.CategoryId = foodCategory.CategoryId;
+                _productContext.Products.Add(productCreate);
+                  _productContext.SaveChanges();
+               
+                
+ 
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
             }
-            return RedirectToAction("Index", "Restaurant");
+            return RedirectToAction("Create", "Product");
         }
 
 

@@ -19,26 +19,39 @@ namespace Prectice1.Services
             restaurantCategoryService= new RestaurantCategoryServices();
             productServices = new ProductServices();    
         }
-        public object Details(int id)
+        public object Details()
         {
-            var restauranat = restaurantService.getById(id);
-            
-            var categoryRestaurnat = restaurantCategoryService.get().Where(c => c.RestaurantID == id).FirstOrDefault();
-            var product=productServices.get();
-            RestaurantDetailsViewModel restaurantDetails = new RestaurantDetailsViewModel();
-            restaurantDetails.RestaurantID = id;
-            restaurantDetails.RestaurantName = restaurantDetails.RestaurantName;
-            restaurantDetails.Contact = restaurantDetails.Contact;
-            restaurantDetails.Description = restaurantDetails.Description;
-            categoryRestaurnat.CategoryId = restaurantDetails.CategoryId;
-            categoryRestaurnat.CategoryName = restaurantDetails.CategoryName;
-            categoryRestaurnat.Date = restaurantDetails.Date;
-            categoryRestaurnat.ImageUrl = restaurantDetails.ImageUrl;
-            var productDetails = productServices.get().Where(c => c.CategoryId == categoryRestaurnat.CategoryId).FirstOrDefault();
+            List<RestaurantDetailsViewModel> viewModelRestaurantDetails = new List<RestaurantDetailsViewModel>();
+            try
+            {
+                
+               /* var restauranat = restaurantService.get();
+                
+                var categoryRestaurnat = restaurantCategoryService.get().Where(c => c.RestaurantID == id).FirstOrDefault();
+                var product = productServices.getById(id);*/
 
 
+              /*  RestaurantDetailsViewModel restaurantDetails = new RestaurantDetailsViewModel();
+                viewModelRestaurantDetails.RestaurantInfo.RestaurantID = id;
+                viewModelRestaurantDetails.RestaurantInfo.RestaurantName = restauranat.RestaurantName;
+                viewModelRestaurantDetails.RestaurantInfo.Contact = restauranat.Contact;
+                viewModelRestaurantDetails.RestaurantInfo.Description = restauranat.Description;
+                viewModelRestaurantDetails.FoodCategory.CategoryId = categoryRestaurnat.CategoryId;
+                viewModelRestaurantDetails.FoodCategory.CategoryName = categoryRestaurnat.CategoryName;
+                viewModelRestaurantDetails.FoodCategory.Date = categoryRestaurnat.Date;
+                viewModelRestaurantDetails.FoodCategory.ImageUrl = categoryRestaurnat.ImageUrl;
+                viewModelRestaurantDetails.Product = productServices.get().Where(c => c.CategoryId == categoryRestaurnat.CategoryId).ToList();*/
+                
+                
+            }
+            catch (Exception xy)
+            {
 
-            return null;
+                Console.WriteLine(xy.Message);
+            }
+
+
+            return viewModelRestaurantDetails;
 
         }
     }

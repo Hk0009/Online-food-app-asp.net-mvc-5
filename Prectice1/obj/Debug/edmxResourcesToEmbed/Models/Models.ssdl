@@ -5,11 +5,11 @@
       <PropertyRef Name="CartId" />
     </Key>
     <Property Name="CartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Quantity" Type="int" />
     <Property Name="ProductID" Type="int" />
     <Property Name="Date" Type="smalldatetime" />
     <Property Name="PersonlId" Type="int" />
     <Property Name="Total" Type="int" />
+    <Property Name="Quantity" Type="int" />
   </EntityType>
   <EntityType Name="FoodCategories">
     <Key>
@@ -21,15 +21,23 @@
     <Property Name="Date" Type="smalldatetime" />
     <Property Name="RestaurantID" Type="int" />
   </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserName" Type="varchar" MaxLength="100" />
+    <Property Name="Password" Type="varchar" MaxLength="100" />
+    <Property Name="Role" Type="varchar" MaxLength="100" />
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
   <EntityType Name="Orders">
     <Key>
       <PropertyRef Name="OrderId" />
     </Key>
     <Property Name="OrderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Quantity" Type="int" />
-    <Property Name="ProductID" Type="int" />
     <Property Name="Date" Type="smalldatetime" />
     <Property Name="PersonlId" Type="int" />
+    <Property Name="Total" Type="int" />
   </EntityType>
   <!--Errors Found During Generation:
 warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
@@ -74,6 +82,29 @@ warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key de
     <Property Name="Contact" Type="varchar" MaxLength="100" />
     <Property Name="Description" Type="varchar" MaxLength="100" />
   </EntityType>
+  <!--Errors Found During Generation:
+warning 6002: The table/view 'foodie.dbo.role' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+  <EntityType Name="role">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Role" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="roles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" />
+    <Property Name="Roles" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <!--Errors Found During Generation:
+warning 6013: The table/view 'foodie.dbo.Table_1' does not have a primary key defined and no valid primary key could be inferred. This table/view has been excluded. To use the entity, you will need to review your schema, add the correct keys, and uncomment it.
+        <EntityType Name="Table_1">
+          <Property Name="Id" Type="nchar" MaxLength="10" />
+        </EntityType>-->
   <Association Name="FK__cart__PersonlId__403A8C7D">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="cart" Type="Self.cart" Multiplicity="*" />
@@ -110,7 +141,7 @@ warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
-  <Association Name="FK__Orders__PersonlI__3C69FB99">
+  <Association Name="FK__Orders__PersonlI__5FB337D6">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
     <ReferentialConstraint>
@@ -119,18 +150,6 @@ warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key de
       </Principal>
       <Dependent Role="Orders">
         <PropertyRef Name="PersonlId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
-  <Association Name="FK__Orders__ProductI__3B75D760">
-    <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-    <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Products">
-        <PropertyRef Name="ProductID" />
-      </Principal>
-      <Dependent Role="Orders">
-        <PropertyRef Name="ProductID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>
@@ -158,19 +177,40 @@ warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK_roles_Login">
+    <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
+    <End Role="roles" Type="Self.roles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="roles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <EntityContainer Name="foodieModelStoreContainer">
     <EntitySet Name="cart" EntityType="Self.cart" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="FoodCategories" EntityType="Self.FoodCategories" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="PersonalInfo" EntityType="Self.PersonalInfo" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="RestaurantInfo" EntityType="Self.RestaurantInfo" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="roles" EntityType="Self.roles" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Payment" EntityType="Self.Payment" store:Type="Tables" store:Schema="dbo">
       <DefiningQuery>SELECT 
     [Payment].[PaymentID] AS [PaymentID], 
     [Payment].[Mode] AS [Mode], 
     [Payment].[PersonlId] AS [PersonlId]
     FROM [dbo].[Payment] AS [Payment]</DefiningQuery>
+    </EntitySet>
+    <EntitySet Name="role" EntityType="Self.role" store:Type="Tables" store:Schema="dbo">
+      <DefiningQuery>SELECT 
+    [role].[Id] AS [Id], 
+    [role].[UserId] AS [UserId], 
+    [role].[Role] AS [Role]
+    FROM [dbo].[role] AS [role]</DefiningQuery>
     </EntitySet>
     <AssociationSet Name="FK__cart__PersonlId__403A8C7D" Association="Self.FK__cart__PersonlId__403A8C7D">
       <End Role="PersonalInfo" EntitySet="PersonalInfo" />
@@ -184,12 +224,8 @@ warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key de
       <End Role="RestaurantInfo" EntitySet="RestaurantInfo" />
       <End Role="FoodCategories" EntitySet="FoodCategories" />
     </AssociationSet>
-    <AssociationSet Name="FK__Orders__PersonlI__3C69FB99" Association="Self.FK__Orders__PersonlI__3C69FB99">
+    <AssociationSet Name="FK__Orders__PersonlI__5FB337D6" Association="Self.FK__Orders__PersonlI__5FB337D6">
       <End Role="PersonalInfo" EntitySet="PersonalInfo" />
-      <End Role="Orders" EntitySet="Orders" />
-    </AssociationSet>
-    <AssociationSet Name="FK__Orders__ProductI__3B75D760" Association="Self.FK__Orders__ProductI__3B75D760">
-      <End Role="Products" EntitySet="Products" />
       <End Role="Orders" EntitySet="Orders" />
     </AssociationSet>
     <AssociationSet Name="FK__Payment__Personl__4222D4EF" Association="Self.FK__Payment__Personl__4222D4EF">
@@ -199,6 +235,10 @@ warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key de
     <AssociationSet Name="FK__Products__Catego__2C3393D0" Association="Self.FK__Products__Catego__2C3393D0">
       <End Role="FoodCategories" EntitySet="FoodCategories" />
       <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK_roles_Login" Association="Self.FK_roles_Login">
+      <End Role="Login" EntitySet="Login" />
+      <End Role="roles" EntitySet="roles" />
     </AssociationSet>
   </EntityContainer>
 </Schema>

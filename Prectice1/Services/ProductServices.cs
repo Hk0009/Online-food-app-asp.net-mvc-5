@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using Prectice1.Models;
 using Prectice1.Services;
-
+using Prectice1.CustomModels;
 
 namespace Prectice1.Services
 {
@@ -24,11 +24,13 @@ namespace Prectice1.Services
             return _context.Products.Where(c => c.ProductID == id).FirstOrDefault();
 
         }
-        public Product create(Product product, HttpPostedFileBase ImageFile)
+        public Product create(ProductViewModel product, HttpPostedFileBase ImageFile)
         {
             ImageUploadService imageUploadService = new ImageUploadService();
             string path = imageUploadService.uploadimage(ImageFile);
-            Product products=new Product();  
+            Product products=new Product();
+            
+                            
 
            // products.ProductID = product.ProductID; 
             products.ProductName = product.ProductName; 
@@ -36,10 +38,10 @@ namespace Prectice1.Services
             products.Price =product.Price;
             products.Quantity=product.Quantity;
             products.ImageUrl= path;
-            product.CategoryId=product.CategoryId;
-            product.Date = product.Date;
-            _context.Products.Add(products);    
-            _context.SaveChanges();
+            product.Date= DateTime.Now; 
+            //products.CategoryId=product.CategoryId;
+           
+           
             return products;
         }
         public Product edit(Product product, int id)
@@ -63,6 +65,7 @@ namespace Prectice1.Services
         {
             var deleteProduct=_context.Products.Where(c => c.ProductID == id).FirstOrDefault(); 
             _context.Products.Remove(deleteProduct);
+            _context.SaveChanges();
             return deleteProduct;   
         }
     }

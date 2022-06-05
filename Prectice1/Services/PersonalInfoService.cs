@@ -3,18 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Prectice1.Models;
-using Prectice1.Services;
+using Prectice1.CustomModels;
 
 namespace Prectice1.Services
 {
     public class PersonalInfoService
     {
         private readonly foodieEntities1 foodieEntitiesContext;
-        public PersonalInfoService(foodieEntities1 _foodieEntitiesContext)
+        public PersonalInfoService()
         {
-           foodieEntitiesContext = _foodieEntitiesContext;
+           foodieEntitiesContext = new foodieEntities1();
         }   
-        public PersonalInfo create(PersonalInfo personalInfo)
+        public PersonalInfo create(PersonalInfoViewModel personalInfo)
         {
             PersonalInfo personalInfo1 = new PersonalInfo();
             personalInfo1.PersonName=personalInfo.PersonName;
@@ -22,9 +22,8 @@ namespace Prectice1.Services
             personalInfo1.Contact=personalInfo.Contact;
             personalInfo1.Adress=personalInfo.Adress;
             personalInfo1.Pincode=personalInfo.Pincode;
-            foodieEntitiesContext.PersonalInfoes.Add(personalInfo1);
-            foodieEntitiesContext.SaveChanges();
-            return personalInfo;
+           
+            return personalInfo1;
          
         }
         public PersonalInfo edit(PersonalInfo personalInfo, int id)

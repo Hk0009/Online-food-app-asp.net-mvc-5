@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Web;
 using System.Web.Mvc;
 using Prectice1.Services;
 using Prectice1.Models;
-using System.IO;
+using Prectice1.CustomModels;
+
 
 namespace Prectice1.Controllers
 {
@@ -13,9 +13,11 @@ namespace Prectice1.Controllers
     {
         // GET: RestaurantCategory
         private readonly RestaurantCategoryServices _restaurantCategoryService;
+        private readonly foodieEntities1 _categoryContext;  
         public RestaurantCategoryController()
         {
-            _restaurantCategoryService = new RestaurantCategoryServices();    
+            _restaurantCategoryService = new RestaurantCategoryServices();
+            _categoryContext = new foodieEntities1();
         }
         public ActionResult Index()
         {
@@ -27,16 +29,26 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(FoodCategory foodCategory,HttpPostedFileBase ImageFile)
+        public ActionResult Create(FoodCategoryViewModel foodCategory,HttpPostedFileBase ImageFile)
         {
             try
             {
-               
+                RestaurantInfo restaurantId = (RestaurantInfo)Session["restaurantId"];
 
                 var createFoodCategory = _restaurantCategoryService.create(foodCategory, ImageFile);
-               
+                //createFoodCategory.RestaurantID=restaurantId.RestaurantID;
+                createFoodCategory.RestaurantID=restaurantId.RestaurantID;  
+                _categoryContext.FoodCategories.Add(createFoodCategory);
+                _categoryContext.SaveChanges();
+                Session["foodCategoryId"] = new FoodCategory
+                {
+                    CategoryId = createFoodCategory.CategoryId
 
-                
+                };
+
+
+
+
             }
             catch (Exception ex)
             {
