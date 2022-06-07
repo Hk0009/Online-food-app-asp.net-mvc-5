@@ -28,9 +28,11 @@ namespace Prectice1.Models
         public string ImageUrl { get; set; }
         public Nullable<int> CategoryId { get; set; }
         public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<int> RestaurantID { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<cart> carts { get; set; }
         public virtual FoodCategory FoodCategory { get; set; }
+        public virtual RestaurantInfo RestaurantInfo { get; set; }
     }
 }

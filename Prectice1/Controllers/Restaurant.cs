@@ -11,7 +11,7 @@ using Prectice1.CustomModels;
 
 namespace Prectice1.Controllers
 {
-    
+    [Authorize(Roles = "admin")]
     public class RestaurantController : Controller
     {
         // GET: Restaurant
@@ -29,7 +29,7 @@ namespace Prectice1.Controllers
             _restaurantContext = new foodieEntities1();
             extendedViewServices = new extendedViewServices();
         }
-        /*[Authorize(Roles ="admin")]*/
+        
         public ActionResult Index()
         {
             /*var RestaurantList = _restaurentService.get();
@@ -71,27 +71,44 @@ namespace Prectice1.Controllers
 
             {
                 //foodieEntities1 context = new foodieEntities1();
-               var restaurantCreate = _restaurentService.create(restaurantInfo);
-                _restaurantContext.RestaurantInfoes.Add(restaurantCreate);
-                _restaurantContext.SaveChanges();
-             
-                
-                /* var res= context.RestaurantInfoes.Add(restaurantInfo);
-                context.SaveChanges();*/
-                Session["restaurantId"] = new RestaurantInfo
-              {
-                  RestaurantID = restaurantCreate.RestaurantID
+                //create a resta
+                if (ModelState.IsValid)
+                {
 
-              };
-                
-  
+
+
+
+                    var restaurantCreate = _restaurentService.create(restaurantInfo);
+                    //create a user 
+                    var user = new Login();
+
+                    _restaurantContext.RestaurantInfoes.Add(restaurantCreate);
+                    _restaurantContext.SaveChanges();
+
+
+                    /* var res= context.RestaurantInfoes.Add(restaurantInfo);
+                    context.SaveChanges();*/
+                    Session["restaurantId"] = new RestaurantInfo
+                    {
+                        RestaurantID = restaurantCreate.RestaurantID
+
+                    };
+                    return RedirectToAction("Create", "RestaurantCategory");
+                }
+                else
+                {
+                    ViewBag.Message = "Some Thing Is Missing";
+
+                }
+
+
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
             }
-            return RedirectToAction("Create", "RestaurantCategory");
+            return View();
         }
 
 /*        [Authorize(Roles = "admin")]
@@ -99,12 +116,22 @@ namespace Prectice1.Controllers
         public ActionResult Details()
         {
             List<RestaurantDetailsViewModel> detailView = new List<RestaurantDetailsViewModel>();
-            var o = _restaurantContext.RestaurantInfoes.OrderByDescending(a => a.RestaurantID);
-            foreach(var i in o)
+            try
             {
-                var od = _restaurantContext.FoodCategories.Where(a=>a.RestaurantID==i.RestaurantID).ToList();
-                
-                detailView.Add(new RestaurantDetailsViewModel { RestaurantInfos = i, FoodCategorys =od});
+
+               
+                var restaurantDetails = _restaurantContext.RestaurantInfoes.OrderByDescending(a => a.RestaurantID);
+                foreach (var categoryList in restaurantDetails)
+                {
+                    var od = _restaurantContext.FoodCategories.Where(a => a.RestaurantID == categoryList.RestaurantID).ToList();
+
+                    detailView.Add(new RestaurantDetailsViewModel { RestaurantInfos = categoryList, FoodCategorys = od });
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
             }
                 /*
             try
@@ -127,8 +154,17 @@ namespace Prectice1.Controllers
         }
         public ActionResult Edit(int id)
         {
-            var restaurantEdit=_restaurentService.getById(id);
-            return PartialView("EditRestaurantPartialView",restaurantEdit);
+            try
+            {
+                var restaurantEdit = _restaurentService.getById(id);
+                return PartialView("EditRestaurantPartialView", restaurantEdit);
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+            return PartialView("EditRestaurantPartialView");
         }
         [HttpPost]
         public ActionResult Edit(int id ,RestaurantInfo restaurantInfo)

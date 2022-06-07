@@ -20,11 +20,10 @@ namespace Prectice1.Services
             foreach(var i in orderBydescendingRestaurant)
             {
                 var restaurantCategory=_contextfoodieEntities1.FoodCategories.Where(x=>x.RestaurantID==i.RestaurantID).ToList();
-                foreach(var product in restaurantCategory)
-                {
-                    var categoryProduct = _contextfoodieEntities1.Products.Where(x => x.CategoryId == product.CategoryId).ToList();
-                    details.Add(new RestaurantDetailsViewModel { RestaurantInfos = i, FoodCategorys = restaurantCategory, Products = categoryProduct });
-                }
+                
+                   // var categoryProduct = _contextfoodieEntities1.Products.Where(x => x.CategoryId == product.CategoryId).ToList();
+                    details.Add(new RestaurantDetailsViewModel { RestaurantInfos = i, FoodCategorys = restaurantCategory });
+               
                
             }
             return details;

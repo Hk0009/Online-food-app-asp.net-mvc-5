@@ -23,19 +23,36 @@ namespace Prectice1.Controllers
             var ListCart = _cartServices.Get();
             return View(ListCart);
         }
-        public ViewResult Create()
+        public ActionResult Create()
         {
             return View();
         }
         [HttpPost]
         public ActionResult Create(cartViewModals cartviewModel,int id)
         {
-            var cartCreate = _cartServices.Create(cartviewModel,id);
-            PersonalInfo personalID = (PersonalInfo)Session["PersonalId"];
-            cartCreate.PersonlId = personalID.PersonlId;
-            foodieEntities1.carts.Add(cartCreate);
-            foodieEntities1.SaveChanges();
-            return RedirectToAction("Index","Product");
+            try
+            {
+
+
+                if (ModelState.IsValid)
+                {
+                    var cartCreate = _cartServices.Create(cartviewModel, id);
+                    PersonalInfo personalID = (PersonalInfo)Session["PersonalId"];
+                    cartCreate.PersonlId = personalID.PersonlId;
+                    foodieEntities1.carts.Add(cartCreate);
+                    foodieEntities1.SaveChanges();
+                    return RedirectToAction("Index", "Product"); 
+                }
+                else
+                {
+                    ViewBag.Message = "PLease check Something is Missing";
+                }
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+            return View();
         }
        
         

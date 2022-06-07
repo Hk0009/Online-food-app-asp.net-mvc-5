@@ -53,6 +53,8 @@
     <Property Name="Date" Type="DateTime" Precision="0" />
     <NavigationProperty Name="carts" Relationship="Self.FK__cart__ProductID__3F466844" FromRole="Products" ToRole="cart" />
     <NavigationProperty Name="FoodCategory" Relationship="Self.FK__Products__Catego__2C3393D0" FromRole="Products" ToRole="FoodCategories" />
+    <Property Name="RestaurantID" Type="Int32" />
+    <NavigationProperty Name="RestaurantInfo" Relationship="foodieModel.FK__Products__Restau__60A75C0F" FromRole="Product" ToRole="RestaurantInfo" />
   </EntityType>
   <EntityType Name="RestaurantInfo">
     <Key>
@@ -63,6 +65,7 @@
     <Property Name="Contact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="FoodCategories" Relationship="Self.FK__FoodCateg__Resta__29572725" FromRole="RestaurantInfo" ToRole="FoodCategories" />
+    <NavigationProperty Name="Products" Relationship="foodieModel.FK__Products__Restau__60A75C0F" FromRole="RestaurantInfo" ToRole="Product" />
   </EntityType>
   <EntityType Name="Payment">
     <Key>
@@ -176,6 +179,10 @@
       <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
       <End Role="Order1" EntitySet="Order1" />
     </AssociationSet>
+    <AssociationSet Name="FK__Products__Restau__60A75C0F" Association="foodieModel.FK__Products__Restau__60A75C0F">
+      <End Role="RestaurantInfo" EntitySet="RestaurantInfoes" />
+      <End Role="Product" EntitySet="Products" />
+    </AssociationSet>
   </EntityContainer>
   <EntityType Name="Login">
     <Key>
@@ -249,6 +256,18 @@
       </Principal>
       <Dependent Role="Order1">
         <PropertyRef Name="PersonlId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__Products__Restau__60A75C0F">
+    <End Type="foodieModel.RestaurantInfo" Role="RestaurantInfo" Multiplicity="0..1" />
+    <End Type="foodieModel.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RestaurantInfo">
+        <PropertyRef Name="RestaurantID" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="RestaurantID" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

@@ -23,6 +23,36 @@ namespace Prectice1.Controllers
             var PersonalinfoList = _personalInfoContext.get();
             return View(PersonalinfoList);
         }
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+                var personalInfoEdit = _personalInfoContext.getById(id);
+                return PartialView("PersonalInfoEditPartialView", personalInfoEdit);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            return View();    
+           
+        }
+        [HttpPost]
+        public ActionResult Edit(PersonalInfo personalView, int id)
+        {
+            try
+            {
+                var PersonalEdit = _personalInfoContext.edit(personalView, id);
+            }
+            catch (Exception exception)
+            {
+
+                Console.WriteLine(exception.Message);
+            }
+            return RedirectToAction("Index", "PersonalInfo");
+
+        }
         public ViewResult Create()
         {
              return View(); 
@@ -32,20 +62,46 @@ namespace Prectice1.Controllers
         {
             try
             {
-                var personalinfoCreate = _personalInfoContext.create(personalinfo);
-                foodieEntities1.PersonalInfoes.Add(personalinfoCreate);
-                foodieEntities1.SaveChanges();
-                Session["PersonalId"] = new PersonalInfo
+                if (ModelState.IsValid)
                 {
-                    PersonlId = personalinfoCreate.PersonlId
+                    var personalinfoCreate = _personalInfoContext.create(personalinfo);
+                    foodieEntities1.PersonalInfoes.Add(personalinfoCreate);
+                    foodieEntities1.SaveChanges();
+                    Session["PersonalId"] = new PersonalInfo
+                    {
+                        PersonlId = personalinfoCreate.PersonlId
 
-                };
+                    };
+                    return RedirectToAction("Index", "User");
+                }
+                else
+                {
+                    ViewBag.Message = "Enter Valid Details";
+                }
+
             }
             catch(Exception ex)
             {
                 Console.WriteLine(ex.Message);
             }
-            return RedirectToAction("Index","Product");
+            return View();
+        }
+        public ActionResult Delete(int id)
+        {
+            try
+            {
+                var deletePersonalInfo = _personalInfoContext.Delete(id);
+                if(deletePersonalInfo==null)
+                {
+                    return null;
+                }
+            }
+            catch (Exception exception)
+            {
+
+                Console.WriteLine(exception.Message);
+            }
+            return RedirectToAction("Index","PersonalInfo");
         }
 
     }

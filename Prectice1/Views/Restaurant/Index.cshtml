@@ -65,14 +65,13 @@
                             <th>CategoryName</th>
                         </tr>
 
-                        @foreach (var a in item.Products)
-                        {<tr>
-                                    <td>@a.ProductID</td>
-                                    <td>@a.ProductName</td>
-                          </tr>
-                            
-
-                        }
+                        @foreach (var a in item.FoodCategorys)
+                        {
+                            <tr>
+                                    <td>@a.CategoryId</td>
+                                    <td>@a.CategoryName</td>
+                            </tr>
+                         }
                     </table>
                 </div>
             </td>
@@ -111,9 +110,13 @@
                 </a>|
                 @* @Html.ActionLink("Details", "Details", new { id = item.RestaurantInfos.RestaurantID }) |*@
 
-                <a href="@Url.Action("Delete", new {id = @item.RestaurantInfos.RestaurantID})" class="btn btn-danger" onclick="return confirm ('Are you sure want to delete blog?');">
+                <a href='@Url.Action("Delete", new {id = @item.RestaurantInfos.RestaurantID})' class="btn btn-danger" onclick="return confirm('Are you sure want to delete?');">
                     <i class="glyphicon glyphicon-trash"></i>
+                </a>|
+                <a href='@Url.Action("Details","RestaurantCategory", new {id = @item.RestaurantInfos.RestaurantID})' class="btn btn-primary" onclick="return confirm ('Are you sure want to redirect to Category?');">
+                    <i class="glyphicon glyphicon-list-alt"></i>
                 </a>
+
             </td>
         </tr>
 

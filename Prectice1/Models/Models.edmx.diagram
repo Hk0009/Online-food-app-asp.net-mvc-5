@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d7a3e09ee9e34d36b2fd71fff01bcb30" Name="Diagram1" ZoomLevel="111">
+      <Diagram DiagramId="d7a3e09ee9e34d36b2fd71fff01bcb30" Name="Diagram1" ZoomLevel="62">
         <EntityTypeShape EntityType="foodieModel.cart" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="foodieModel.FoodCategory" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="foodieModel.PersonalInfo" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
@@ -23,6 +23,7 @@
         <AssociationConnector Association="foodieModel.FK_roles_Login" />
         <EntityTypeShape EntityType="foodieModel.Order1" Width="1.5" PointX="7.5" PointY="11.125" />
         <AssociationConnector Association="foodieModel.FK__Orders__PersonlI__5FB337D6" />
+        <AssociationConnector Association="foodieModel.FK__Products__Restau__60A75C0F" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -39,6 +39,7 @@
     <EntitySetMapping Name="Products">
       <EntityTypeMapping TypeName="foodieModel.Product">
         <MappingFragment StoreEntitySet="Products">
+          <ScalarProperty Name="RestaurantID" ColumnName="RestaurantID" />
           <ScalarProperty Name="ProductID" ColumnName="ProductID" />
           <ScalarProperty Name="ProductName" ColumnName="ProductName" />
           <ScalarProperty Name="Description" ColumnName="Description" />

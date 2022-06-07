@@ -21,7 +21,8 @@ namespace Prectice1.Services
         }
         public Product getById(int id)
         {
-            return _context.Products.Where(c => c.ProductID == id).FirstOrDefault();
+            var res=_context.Products.Where(c => c.ProductID == id).FirstOrDefault();
+            return res;
 
         }
         public Product create(ProductViewModel product, HttpPostedFileBase ImageFile)
@@ -38,7 +39,7 @@ namespace Prectice1.Services
             products.Price =product.Price;
             products.Quantity=product.Quantity;
             products.ImageUrl= path;
-            product.Date= DateTime.Now; 
+            products.Date= DateTime.Now; 
             //products.CategoryId=product.CategoryId;
            
            

@@ -3,6 +3,7 @@
 @{
     ViewBag.Title = "Create";
 }
+<h2>ViewBag.Message</h2>
 
 <h2>Create</h2>
 
@@ -31,14 +32,8 @@
             @Html.LabelFor(m => m.Quantity)
             @Html.TextBoxFor(m => m.Quantity, new { @class = "form-control" })
         </div>
-        <div class=“form-group”>
-            @Html.LabelFor(m => m.CategoryId)
-            @Html.TextBoxFor(m => m.CategoryId, new { @class = "form-control" })
-        </div>
-        <div class=“form-group”>
-            @Html.LabelFor(m => m.Date)
-            @Html.TextBoxFor(m => m.Date, new { @class = "form-control" })
-        </div>
+        
+        
         <div class=“form-group”>
             @Html.LabelFor(m => m.ImageUrl)
             @* @Html.TextBoxFor(m => m.ImageUrl, new { @class = "form-control" })*@

@@ -8,12 +8,12 @@ namespace Prectice1.CustomModels
 {
     public class RestaurantDetailsViewModel
     {
-/*        public int RestaurantID { get; set; }
+        public int RestaurantID { get; set; }
         public string RestaurantName { get; set; }
         public string Contact { get; set; }
         public string Description { get; set; }
 
-*/     public RestaurantInfo RestaurantInfos { get; set; }
+        public RestaurantInfo RestaurantInfos { get; set; }
        /* public int CategoryId { get; set; }
         public string CategoryName { get; set; }
         public string ImageUrl { get; set; }*/

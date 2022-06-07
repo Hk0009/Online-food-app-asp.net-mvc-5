@@ -143,6 +143,7 @@
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\Restaurant.cs" />
     <Compile Include="Controllers\RestaurantCategoryController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="CustomModels\cartViewModals.cs" />
     <Compile Include="CustomModels\FoodCategoryViewModel.cs" />
     <Compile Include="CustomModels\OrderViewModel.cs" />
@@ -152,6 +153,7 @@
     <Compile Include="CustomModels\RestaurantInfoViewInfo.cs" />
     <Compile Include="CustomModels\RestaurantInfoViewModel.cs" />
     <Compile Include="CustomModels\UserLogin.cs" />
+    <Compile Include="CustomModels\UserProductsViewModels.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -287,6 +289,12 @@
     <Content Include="Views\Cart\Index.cshtml" />
     <Content Include="Views\Cart\Create.cshtml" />
     <Content Include="Views\Order\Create.cshtml" />
+    <Content Include="Views\PersonalInfo\PersonalInfoEditPartialView.cshtml" />
+    <Content Include="Views\Cart\cartCreatePartialView.cshtml" />
+    <Content Include="Views\User\RestaurantProduct.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\RestaurantCategory\Details.cshtml" />
+    <Content Include="Views\Product\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Photoes\" />

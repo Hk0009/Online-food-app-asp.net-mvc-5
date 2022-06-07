@@ -30,11 +30,11 @@
                         if (User.IsInRole("admin"))
                         {
                             <li>@Html.ActionLink("Restaurant", "Index", "Restaurant")</li>
-                            <li>@Html.ActionLink("PersonalInfo", "Index", "PersonalInfo")</li>
+                           
                         }
                         if (User.IsInRole("User"))
                         {
-                            <li>@Html.ActionLink("PersonalInfo", "Index", "PersonalInfo")</li>
+                            <li>@Html.ActionLink("Click here to order", "Create", "PersonalInfo")</li>
                         }
                         <li><a>Dear -@User.Identity.Name</a></li>
 

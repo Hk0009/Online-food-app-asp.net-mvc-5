@@ -29,14 +29,19 @@ namespace Prectice1.Services
         public PersonalInfo edit(PersonalInfo personalInfo, int id)
         {
             var personalInfoEdit = foodieEntitiesContext.PersonalInfoes.Where(c => c.PersonlId == id).FirstOrDefault();
-            if (personalInfoEdit != null)
+            if (personalInfoEdit == null)
+            {
                 return null;
-            personalInfoEdit.PersonName=personalInfo.PersonName; 
-            personalInfoEdit.Mobile_No = personalInfo.Mobile_No;
-            personalInfoEdit.Contact = personalInfo.Contact;
-            personalInfoEdit.Adress = personalInfo.Adress;
-            personalInfoEdit.Pincode = personalInfo.Pincode;
-            foodieEntitiesContext.SaveChanges();
+            }
+            else
+            {
+                personalInfoEdit.PersonName = personalInfo.PersonName;
+                personalInfoEdit.Mobile_No = personalInfo.Mobile_No;
+                personalInfoEdit.Contact = personalInfo.Contact;
+                personalInfoEdit.Adress = personalInfo.Adress;
+                personalInfoEdit.Pincode = personalInfo.Pincode;
+                foodieEntitiesContext.SaveChanges();
+            }
             return personalInfoEdit;
 
         }

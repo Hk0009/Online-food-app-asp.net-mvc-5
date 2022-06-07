@@ -72,6 +72,7 @@ warning 6002: The table/view 'foodie.dbo.Payment' does not have a primary key de
     <Property Name="ImageUrl" Type="varchar" MaxLength="100" />
     <Property Name="CategoryId" Type="int" />
     <Property Name="Date" Type="smalldatetime" />
+    <Property Name="RestaurantID" Type="int" />
   </EntityType>
   <EntityType Name="RestaurantInfo">
     <Key>
@@ -177,6 +178,18 @@ warning 6013: The table/view 'foodie.dbo.Table_1' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Products__Restau__60A75C0F">
+    <End Role="RestaurantInfo" Type="Self.RestaurantInfo" Multiplicity="0..1" />
+    <End Role="Products" Type="Self.Products" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RestaurantInfo">
+        <PropertyRef Name="RestaurantID" />
+      </Principal>
+      <Dependent Role="Products">
+        <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_roles_Login">
     <End Role="Login" Type="Self.Login" Multiplicity="0..1" />
     <End Role="roles" Type="Self.roles" Multiplicity="*" />
@@ -234,6 +247,10 @@ warning 6013: The table/view 'foodie.dbo.Table_1' does not have a primary key de
     </AssociationSet>
     <AssociationSet Name="FK__Products__Catego__2C3393D0" Association="Self.FK__Products__Catego__2C3393D0">
       <End Role="FoodCategories" EntitySet="FoodCategories" />
+      <End Role="Products" EntitySet="Products" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Products__Restau__60A75C0F" Association="Self.FK__Products__Restau__60A75C0F">
+      <End Role="RestaurantInfo" EntitySet="RestaurantInfo" />
       <End Role="Products" EntitySet="Products" />
     </AssociationSet>
     <AssociationSet Name="FK_roles_Login" Association="Self.FK_roles_Login">

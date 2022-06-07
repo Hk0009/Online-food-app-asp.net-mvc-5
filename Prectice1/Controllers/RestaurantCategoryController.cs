@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using Prectice1.Services;
 using Prectice1.Models;
 using Prectice1.CustomModels;
-
+using System.Linq;
 
 namespace Prectice1.Controllers
 {
@@ -29,22 +29,44 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(FoodCategoryViewModel foodCategory,HttpPostedFileBase ImageFile)
+        public ActionResult Create(FoodCategoryViewModel foodCategory,HttpPostedFileBase ImageFile, int id)
         {
             try
             {
-                RestaurantInfo restaurantId = (RestaurantInfo)Session["restaurantId"];
-
-                var createFoodCategory = _restaurantCategoryService.create(foodCategory, ImageFile);
-                //createFoodCategory.RestaurantID=restaurantId.RestaurantID;
-                createFoodCategory.RestaurantID=restaurantId.RestaurantID;  
-                _categoryContext.FoodCategories.Add(createFoodCategory);
-                _categoryContext.SaveChanges();
-                Session["foodCategoryId"] = new FoodCategory
+                if (ModelState.IsValid)
                 {
-                    CategoryId = createFoodCategory.CategoryId
+                    RestaurantInfo restaurantId = (RestaurantInfo)Session["restaurantId"];
 
-                };
+                    var createFoodCategory = _restaurantCategoryService.create(foodCategory, ImageFile);
+                    //createFoodCategory.RestaurantID=restaurantId.RestaurantID;
+                   
+                    if(restaurantId == null)
+                    {
+                        createFoodCategory.RestaurantID = id;
+                        _categoryContext.FoodCategories.Add(createFoodCategory);
+                        _categoryContext.SaveChanges();
+                        return RedirectToAction("Index", "Restaurant");
+                    }
+                    else
+                    {
+                        createFoodCategory.RestaurantID = restaurantId.RestaurantID;
+                        Session["foodCategoryId"] = new FoodCategory
+                        {
+                            CategoryId = createFoodCategory.CategoryId
+
+                        };
+                        _categoryContext.FoodCategories.Add(createFoodCategory);
+                        _categoryContext.SaveChanges();
+                        return RedirectToAction("Create", "Product");
+                    }
+                   
+                   
+                }
+                else
+                {
+                    ViewBag.Message = "Please Enter Correct Details";
+                    return View();
+                }
 
 
 
@@ -87,22 +109,28 @@ namespace Prectice1.Controllers
             }
             return RedirectToAction("Index");
         }
+
         public ActionResult Details(int id)
+        
         {
             try
             {
-                var restaurentCategoryDetails = _restaurantCategoryService.getId(id);
-                if(restaurentCategoryDetails == null)
+               
+                var restaurentCategoryDetails = _categoryContext.FoodCategories.Where(x=>x.RestaurantID==id).ToList();
+                
+                if (restaurentCategoryDetails == null)
                 {
                     return null;
                 }
+                return View(restaurentCategoryDetails);
             }
             catch (Exception ex)
             {
 
                 Console.WriteLine(ex.Message);
             }
-            return View();  
+            return View();
+             
         }
 
         public ActionResult Delete(int id)

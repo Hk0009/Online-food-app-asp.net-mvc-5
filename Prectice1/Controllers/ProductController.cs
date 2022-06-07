@@ -36,18 +36,43 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(ProductViewModel product,HttpPostedFileBase ImageFile)
+        public ActionResult Create(ProductViewModel product,HttpPostedFileBase ImageFile,int id)
         {
             try
 
 
             {
-                // foodieEntities1 context = new foodieEntities1();
-                FoodCategory foodCategory = (FoodCategory)Session["foodCategoryId"];
-                var productCreate = _productServices.create(product, ImageFile);
-                productCreate.CategoryId = foodCategory.CategoryId;
-                _productContext.Products.Add(productCreate);
-                  _productContext.SaveChanges();
+                if (ModelState.IsValid)
+                {
+                    var restaurantId = _productContext.FoodCategories.Where(x=>x.CategoryId==id).First();
+
+                    var resId = restaurantId.RestaurantID;
+                    RestaurantInfo restaurantInfo = (RestaurantInfo)Session["restaurantId"];
+                    // foodieEntities1 context = new foodieEntities1();
+                    FoodCategory foodCategory = (FoodCategory)Session["foodCategoryId"];
+                    var productCreate = _productServices.create(product, ImageFile);
+                    if (restaurantInfo==null)
+                    {
+                        
+                        productCreate.CategoryId = id;
+                        productCreate.RestaurantID = resId;
+                        _productContext.Products.Add(productCreate);
+                        _productContext.SaveChanges();
+                        return RedirectToAction("Index", "Restaurant");
+                    }
+                    else
+                    {
+                        productCreate.RestaurantID = restaurantId.RestaurantID;
+                        _productContext.Products.Add(productCreate);
+                        _productContext.SaveChanges();
+                        return RedirectToAction("Create", "Product");
+                    }
+                    
+                }
+                else
+                {
+                    ViewBag.Message = "Please Enter Correct Details";
+                }
                
                 
  
@@ -57,7 +82,7 @@ namespace Prectice1.Controllers
 
                 Console.WriteLine(ex.Message);
             }
-            return RedirectToAction("Create", "Product");
+            return View();
         }
 
 
@@ -65,7 +90,9 @@ namespace Prectice1.Controllers
         {
             try
             {
-                var detailsRestaurant = _productServices.getById(id);
+                var detailsRestaurant = (from e in _productContext.Products
+                                        where e.RestaurantID == id
+                                        select e).ToList();
                 if (detailsRestaurant == null)
                     return HttpNotFound();
                 return View(detailsRestaurant);
@@ -119,6 +146,7 @@ namespace Prectice1.Controllers
             }
             return RedirectToAction("Index");
         }
+        
 
 
     }

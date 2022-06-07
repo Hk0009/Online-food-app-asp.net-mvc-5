@@ -1,0 +1,62 @@
+﻿@model Prectice1.Models.PersonalInfo
+
+
+<div>
+
+    <form id="myForm">
+        @Html.HiddenFor(m => m.PersonlId)
+        <div class="form-group">
+            @Html.TextBoxFor(model => model.Mobile_No, new { @class = "form-control", @placeholder = "Mobile_No" })
+        </div>
+            <div class="form-group">
+            @Html.TextBoxFor(model => model.Contact, new { @class = "form-control", @placeholder = "Contact " })
+            </div>
+            <div class="form-group">
+                @Html.TextBoxFor(model => model.Adress, new { @class = "form-control", @placeholder = "Address" })
+            </div>
+                <div class="form-group">
+                @Html.TextBoxFor(model => model.Pincode, new { @class = "form-control", @placeholder = "Pincode" })
+                </div>
+                <div class="form-group">
+                    <a href="#" id="btnSubmit" class="btn btn-success btn-block">
+                        update
+                    </a>
+                </div>
+</form>
+
+
+
+</div>
+<style>
+</style>
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#btnSubmit").click(function () {
+
+          @*  $("#loaderDiv").show();*@
+
+            var myformdata = $("#myForm").serialize();
+
+            $.ajax({
+
+                type: "Post",
+                url: '@Url.Action("Edit", "PersonalInfo")',
+                data: myformdata,
+                success: function (data) {
+                   // $("#loaderDiv").hide();
+                   // $("#myModal").modal("hide");
+                    //withot window location href page is not getting refreshed on its own
+                    location.reload();
+
+                }
+
+            })
+        })
+
+    })
+
+
+</script>

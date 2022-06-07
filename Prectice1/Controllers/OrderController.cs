@@ -19,7 +19,7 @@ namespace Prectice1.Controllers
         {
             return View();
         }
-        
+        //This Act
         public ViewResult Create(Order1 order)
         {
             
@@ -28,18 +28,35 @@ namespace Prectice1.Controllers
                 PersonalInfo personalID = (PersonalInfo)Session["PersonalId"];
             if (personalID == null)
             {
-                ViewBag.Message = "Please add data in Cart";
+                ViewBag.Message = "Please add Personal Information for Cart";
                 return View();
             }
-            var Total = (from e in _orderContext.carts
-                             where e.PersonlId == personalID.PersonlId
-                             select e.Total*e.Quantity).Sum();
-              
-                order.PersonlId = personalID.PersonlId;
-                order.Total = Total;
+            else
+            {
+                if (ModelState.IsValid)
+                {
 
-                _orderContext.Order1.Add(order);
-                _orderContext.SaveChanges();
+                    var Total = (from e in _orderContext.carts
+                                 where e.PersonlId == personalID.PersonlId
+                                 select e.Total * e.Quantity).Sum();
+                    if (Total == null)
+                    {
+                        ViewBag.Message = "Please add approprite Data";
+                        return View();
+                    }
+
+                    order.PersonlId = personalID.PersonlId;
+                    order.Total = Total;
+                    _orderContext.Order1.Add(order);
+                    _orderContext.SaveChanges();
+                    ViewBag.Message = "Order Placed Sucessfully"; 
+                }
+                else
+                {
+                    ViewBag.Message = "Please Enter Currect values";
+                }
+
+            }
 
             
            

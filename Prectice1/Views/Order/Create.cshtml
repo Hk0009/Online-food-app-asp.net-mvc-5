@@ -5,4 +5,21 @@
 }
 
 <h2>Create</h2>
-<h2>@ViewBag.Message</h2>
+
+
+@if (ViewBag.Message == "Please add Personal Information for Cart")
+{
+    <h2>@ViewBag.Message</h2>
+    <h2>Click Below</h2>
+    <td>
+        <a href='@Url.Action("Create", "PersonalInfo")' class="btn btn-primary">Enter personalInfo First</a>
+    </td>
+}
+@if (ViewBag.Message == "Please add approprite Data")
+{
+    <h2>@ViewBag.Message</h2>
+    <h2> Click Below</h2>
+    <td>
+        <a href='@Url.Action("Index", "Product")' class="btn btn-primary">To add detail to cart</a>
+    </td>
+}

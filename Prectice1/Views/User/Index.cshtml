@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Prectice1.Models.RestaurantInfo>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>ORDER</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.RestaurantName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Contact)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.RestaurantName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Contact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+          <a href='@Url.Action("RestaurantProduct", "User", new {id=item.RestaurantID})' class="btn btn-info">ORDER</a>
+         </td>
+    </tr>
+}
+
+</table>
