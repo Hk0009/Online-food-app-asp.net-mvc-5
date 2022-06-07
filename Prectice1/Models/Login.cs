@@ -17,18 +17,16 @@ namespace Prectice1.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Login()
         {
-            this.roles = new HashSet<role>();
-            this.roles1 = new HashSet<role1>();
+            this.roles = new HashSet<role1>();
         }
     
         public string UserName { get; set; }
         public string Password { get; set; }
-        public string Role { get; set; }
         public int UserId { get; set; }
+        public Nullable<int> RestaurantID { get; set; }
     
+        public virtual RestaurantInfo RestaurantInfo { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<role> roles { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<role1> roles1 { get; set; }
+        public virtual ICollection<role1> roles { get; set; }
     }
 }

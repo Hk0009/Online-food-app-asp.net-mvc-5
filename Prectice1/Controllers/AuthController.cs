@@ -29,7 +29,10 @@ namespace Prectice1.Controllers
         public ActionResult Login(UserLogin login)
         {
             //Persistent cookies are stored on a user's device to hold usage information, settings, personalizations, or sign-on credentials
-            bool isValid = foodieEntities1.Logins.Any(x => x.UserName == login.UserName && x.Password == login.Password);
+            bool isValid = foodieEntities1.Logins.Any(x => x.UserName == login.UserName && x.Password == login.Password  );
+            var logindetails = foodieEntities1.Logins.Where(x => x.UserName == login.UserName).FirstOrDefault();
+           
+                
             if(isValid)
             {
                 FormsAuthentication.SetAuthCookie(login.UserName,false);

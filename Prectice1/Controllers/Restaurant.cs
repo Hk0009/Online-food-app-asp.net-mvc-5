@@ -80,19 +80,30 @@ namespace Prectice1.Controllers
 
                     var restaurantCreate = _restaurentService.create(restaurantInfo);
                     //create a user 
-                    var user = new Login();
+                    
 
                     _restaurantContext.RestaurantInfoes.Add(restaurantCreate);
                     _restaurantContext.SaveChanges();
-
-
-                    /* var res= context.RestaurantInfoes.Add(restaurantInfo);
-                    context.SaveChanges();*/
                     Session["restaurantId"] = new RestaurantInfo
                     {
                         RestaurantID = restaurantCreate.RestaurantID
 
                     };
+                    Random random = new Random();  
+                    var ranDom=random.Next();   
+                    var user = new Login();
+                    user.UserId = restaurantCreate.RestaurantID;
+                    user.RestaurantID=restaurantCreate.RestaurantID;
+                    user.UserName = restaurantCreate.RestaurantName;
+                    user.Password = ranDom.ToString();
+                    _restaurantContext.Logins.Add(user);
+                    _restaurantContext.SaveChanges();
+
+
+
+                    /* var res= context.RestaurantInfoes.Add(restaurantInfo);
+                    context.SaveChanges();*/
+                   
                     return RedirectToAction("Create", "RestaurantCategory");
                 }
                 else

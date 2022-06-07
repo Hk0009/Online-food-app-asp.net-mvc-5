@@ -27,8 +27,8 @@
     </Key>
     <Property Name="UserName" Type="varchar" MaxLength="100" />
     <Property Name="Password" Type="varchar" MaxLength="100" />
-    <Property Name="Role" Type="varchar" MaxLength="100" />
     <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RestaurantID" Type="int" />
   </EntityType>
   <EntityType Name="Orders">
     <Key>
@@ -142,6 +142,18 @@ warning 6013: The table/view 'foodie.dbo.Table_1' does not have a primary key de
       </Dependent>
     </ReferentialConstraint>
   </Association>
+  <Association Name="FK__Login__Restauran__619B8048">
+    <End Role="RestaurantInfo" Type="Self.RestaurantInfo" Multiplicity="0..1" />
+    <End Role="Login" Type="Self.Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RestaurantInfo">
+        <PropertyRef Name="RestaurantID" />
+      </Principal>
+      <Dependent Role="Login">
+        <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK__Orders__PersonlI__5FB337D6">
     <End Role="PersonalInfo" Type="Self.PersonalInfo" Multiplicity="0..1" />
     <End Role="Orders" Type="Self.Orders" Multiplicity="*" />
@@ -236,6 +248,10 @@ warning 6013: The table/view 'foodie.dbo.Table_1' does not have a primary key de
     <AssociationSet Name="FK__FoodCateg__Resta__29572725" Association="Self.FK__FoodCateg__Resta__29572725">
       <End Role="RestaurantInfo" EntitySet="RestaurantInfo" />
       <End Role="FoodCategories" EntitySet="FoodCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK__Login__Restauran__619B8048" Association="Self.FK__Login__Restauran__619B8048">
+      <End Role="RestaurantInfo" EntitySet="RestaurantInfo" />
+      <End Role="Login" EntitySet="Login" />
     </AssociationSet>
     <AssociationSet Name="FK__Orders__PersonlI__5FB337D6" Association="Self.FK__Orders__PersonlI__5FB337D6">
       <End Role="PersonalInfo" EntitySet="PersonalInfo" />

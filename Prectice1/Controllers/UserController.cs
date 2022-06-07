@@ -13,12 +13,13 @@ namespace Prectice1.Controllers
         // GET: User
         private readonly foodieEntities1 _userContext;
         private readonly RestaurantService _restaurantServices;
-        
+        private readonly cartServices _cartServices;
+
         public UserController()
         {
             _userContext = new foodieEntities1();
             _restaurantServices = new RestaurantService();
-            
+            _cartServices = new cartServices();
         }
 
         public ActionResult Index()
@@ -34,6 +35,8 @@ namespace Prectice1.Controllers
             return View(res);
  
         }
+       
+      
 
     }
 }

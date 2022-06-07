@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="d7a3e09ee9e34d36b2fd71fff01bcb30" Name="Diagram1" ZoomLevel="62">
+      <Diagram DiagramId="d7a3e09ee9e34d36b2fd71fff01bcb30" Name="Diagram1" ZoomLevel="93">
         <EntityTypeShape EntityType="foodieModel.cart" Width="1.5" PointX="7.5" PointY="2.625" IsExpanded="true" />
         <EntityTypeShape EntityType="foodieModel.FoodCategory" Width="1.5" PointX="3" PointY="2.75" IsExpanded="true" />
         <EntityTypeShape EntityType="foodieModel.PersonalInfo" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
@@ -16,14 +16,14 @@
         <AssociationConnector Association="foodieModel.FK__FoodCateg__Resta__29572725" ManuallyRouted="false" />
         <AssociationConnector Association="foodieModel.FK__Products__Catego__2C3393D0" ManuallyRouted="false" />
         <AssociationConnector Association="foodieModel.FK__Payment__Personl__4222D4EF" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="foodieModel.Login" Width="1.5" PointX="0.75" PointY="6.75" />
-        <EntityTypeShape EntityType="foodieModel.role" Width="1.5" PointX="3" PointY="6.875" />
-        <AssociationConnector Association="foodieModel.FK__role__UserId__52593CB8" />
+        <EntityTypeShape EntityType="foodieModel.role" Width="1.5" PointX="3.25" PointY="6.625" />
         <EntityTypeShape EntityType="foodieModel.role1" Width="1.5" PointX="3" PointY="10" />
-        <AssociationConnector Association="foodieModel.FK_roles_Login" />
         <EntityTypeShape EntityType="foodieModel.Order1" Width="1.5" PointX="7.5" PointY="11.125" />
         <AssociationConnector Association="foodieModel.FK__Orders__PersonlI__5FB337D6" />
         <AssociationConnector Association="foodieModel.FK__Products__Restau__60A75C0F" />
+        <EntityTypeShape EntityType="foodieModel.Login" Width="1.5" PointX="1" PointY="6.375" />
+        <AssociationConnector Association="foodieModel.FK__Login__Restauran__619B8048" />
+        <AssociationConnector Association="foodieModel.FK_roles_Login" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -19,6 +19,7 @@ namespace Prectice1.Models
         {
             this.FoodCategories = new HashSet<FoodCategory>();
             this.Products = new HashSet<Product>();
+            this.Logins = new HashSet<Login>();
         }
     
         public int RestaurantID { get; set; }
@@ -30,5 +31,7 @@ namespace Prectice1.Models
         public virtual ICollection<FoodCategory> FoodCategories { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Login> Logins { get; set; }
     }
 }

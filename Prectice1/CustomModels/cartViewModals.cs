@@ -9,7 +9,7 @@ namespace Prectice1.CustomModels
     public class cartViewModals
     {
         public int CartId { get; set; }
-        [Required]
+       
         public Nullable<int> Quantity { get; set; }
      
         public Nullable<int> ProductID { get; set; }

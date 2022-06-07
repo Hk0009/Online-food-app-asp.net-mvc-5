@@ -66,6 +66,7 @@
     <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="FoodCategories" Relationship="Self.FK__FoodCateg__Resta__29572725" FromRole="RestaurantInfo" ToRole="FoodCategories" />
     <NavigationProperty Name="Products" Relationship="foodieModel.FK__Products__Restau__60A75C0F" FromRole="RestaurantInfo" ToRole="Product" />
+    <NavigationProperty Name="Logins" Relationship="foodieModel.FK__Login__Restauran__619B8048" FromRole="RestaurantInfo" ToRole="Login" />
   </EntityType>
   <EntityType Name="Payment">
     <Key>
@@ -163,17 +164,8 @@
       <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
       <End Role="Payment" EntitySet="Payments" />
     </AssociationSet>
-    <EntitySet Name="Logins" EntityType="foodieModel.Login" />
     <EntitySet Name="roles" EntityType="foodieModel.role" />
-    <AssociationSet Name="FK__role__UserId__52593CB8" Association="foodieModel.FK__role__UserId__52593CB8">
-      <End Role="Login" EntitySet="Logins" />
-      <End Role="role" EntitySet="roles" />
-    </AssociationSet>
     <EntitySet Name="role1" EntityType="foodieModel.role1" />
-    <AssociationSet Name="FK_roles_Login" Association="foodieModel.FK_roles_Login">
-      <End Role="Login" EntitySet="Logins" />
-      <End Role="role1" EntitySet="role1" />
-    </AssociationSet>
     <EntitySet Name="Order1" EntityType="foodieModel.Order1" />
     <AssociationSet Name="FK__Orders__PersonlI__5FB337D6" Association="foodieModel.FK__Orders__PersonlI__5FB337D6">
       <End Role="PersonalInfo" EntitySet="PersonalInfoes" />
@@ -183,18 +175,16 @@
       <End Role="RestaurantInfo" EntitySet="RestaurantInfoes" />
       <End Role="Product" EntitySet="Products" />
     </AssociationSet>
+    <EntitySet Name="Logins" EntityType="foodieModel.Login" />
+    <AssociationSet Name="FK__Login__Restauran__619B8048" Association="foodieModel.FK__Login__Restauran__619B8048">
+      <End Role="RestaurantInfo" EntitySet="RestaurantInfoes" />
+      <End Role="Login" EntitySet="Logins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_roles_Login" Association="foodieModel.FK_roles_Login">
+      <End Role="Login" EntitySet="Logins" />
+      <End Role="role1" EntitySet="role1" />
+    </AssociationSet>
   </EntityContainer>
-  <EntityType Name="Login">
-    <Key>
-      <PropertyRef Name="UserId" />
-    </Key>
-    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="Role" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <NavigationProperty Name="roles" Relationship="foodieModel.FK__role__UserId__52593CB8" FromRole="Login" ToRole="role" />
-    <NavigationProperty Name="roles1" Relationship="foodieModel.FK_roles_Login" FromRole="Login" ToRole="role1" />
-  </EntityType>
   <EntityType Name="role">
     <Key>
       <PropertyRef Name="Id" />
@@ -202,20 +192,7 @@
     <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
     <Property Name="UserId" Type="Int32" />
     <Property Name="Role1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-    <NavigationProperty Name="Login" Relationship="foodieModel.FK__role__UserId__52593CB8" FromRole="role" ToRole="Login" />
   </EntityType>
-  <Association Name="FK__role__UserId__52593CB8">
-    <End Type="foodieModel.Login" Role="Login" Multiplicity="0..1" />
-    <End Type="foodieModel.role" Role="role" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Login">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="role">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="role1">
     <Key>
       <PropertyRef Name="Id" />
@@ -225,18 +202,6 @@
     <Property Name="Roles" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
     <NavigationProperty Name="Login" Relationship="foodieModel.FK_roles_Login" FromRole="role1" ToRole="Login" />
   </EntityType>
-  <Association Name="FK_roles_Login">
-    <End Type="foodieModel.Login" Role="Login" Multiplicity="0..1" />
-    <End Type="foodieModel.role1" Role="role1" Multiplicity="*" />
-    <ReferentialConstraint>
-      <Principal Role="Login">
-        <PropertyRef Name="UserId" />
-      </Principal>
-      <Dependent Role="role1">
-        <PropertyRef Name="UserId" />
-      </Dependent>
-    </ReferentialConstraint>
-  </Association>
   <EntityType Name="Order1">
     <Key>
       <PropertyRef Name="OrderId" />
@@ -268,6 +233,41 @@
       </Principal>
       <Dependent Role="Product">
         <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RestaurantID" Type="Int32" />
+    <NavigationProperty Name="RestaurantInfo" Relationship="foodieModel.FK__Login__Restauran__619B8048" FromRole="Login" ToRole="RestaurantInfo" />
+    <NavigationProperty Name="roles" Relationship="foodieModel.FK_roles_Login" FromRole="Login" ToRole="role1" />
+  </EntityType>
+  <Association Name="FK__Login__Restauran__619B8048">
+    <End Type="foodieModel.RestaurantInfo" Role="RestaurantInfo" Multiplicity="0..1" />
+    <End Type="foodieModel.Login" Role="Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RestaurantInfo">
+        <PropertyRef Name="RestaurantID" />
+      </Principal>
+      <Dependent Role="Login">
+        <PropertyRef Name="RestaurantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_roles_Login">
+    <End Type="foodieModel.Login" Role="Login" Multiplicity="0..1" />
+    <End Type="foodieModel.role1" Role="role1" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Login">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="role1">
+        <PropertyRef Name="UserId" />
       </Dependent>
     </ReferentialConstraint>
   </Association>

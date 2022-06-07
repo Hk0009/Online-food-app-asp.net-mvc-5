@@ -21,16 +21,16 @@ namespace Prectice1.Services
                           select e;
             return getCart;
         }
-        public cart Create(cartViewModals cartView, int id )
+        public cart Create(int pid )
         {
             cart Cart = new cart();
            var productId = (from e in _foodiesContext.Products
-                           where e.ProductID==id
+                           where e.ProductID==pid
                             select e).FirstOrDefault();
               //var productPrice=_foodiesContext.Products.Where(x=>x.ProductID==).FirstOrDefault();
             var price= productId.Price; 
-             Cart.Quantity = cartView.Quantity;
-            Cart.ProductID = id;
+             Cart.Quantity = 1;
+            Cart.ProductID = pid;
             Cart.Total= Cart.Quantity * price;
             Cart.Date = DateTime.Now;
             return Cart;

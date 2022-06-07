@@ -47,6 +47,7 @@ namespace Prectice1.Controllers
 
                     order.PersonlId = personalID.PersonlId;
                     order.Total = Total;
+                    order.Date = DateTime.Now;
                     _orderContext.Order1.Add(order);
                     _orderContext.SaveChanges();
                     ViewBag.Message = "Order Placed Sucessfully"; 

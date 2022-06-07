@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Prectice1.Services;
 using Prectice1.CustomModels;
 using Prectice1.Models;
+using System.Web.Routing;
+
 namespace Prectice1.Controllers
 {
     public class CartController : Controller
@@ -23,30 +25,32 @@ namespace Prectice1.Controllers
             var ListCart = _cartServices.Get();
             return View(ListCart);
         }
-        public ActionResult Create()
-        {
-            return View();
-        }
-        [HttpPost]
-        public ActionResult Create(cartViewModals cartviewModel,int id)
+       
+       
+        public ActionResult Create(int id,int pid)
         {
             try
             {
 
 
-                if (ModelState.IsValid)
-                {
-                    var cartCreate = _cartServices.Create(cartviewModel, id);
+                
+                    var cartCreate = _cartServices.Create( pid);
                     PersonalInfo personalID = (PersonalInfo)Session["PersonalId"];
-                    cartCreate.PersonlId = personalID.PersonlId;
+                if (personalID == null)
+                {
+                   
+                    return RedirectToAction("Create", "PersonalInfo");
+                }
+                cartCreate.PersonlId = personalID.PersonlId;
+                
                     foodieEntities1.carts.Add(cartCreate);
                     foodieEntities1.SaveChanges();
-                    return RedirectToAction("Index", "Product"); 
-                }
-                else
-                {
-                    ViewBag.Message = "PLease check Something is Missing";
-                }
+
+                return RedirectToAction("RestaurantProduct","User", new { id = id });  
+               
+                
+                   
+                
             }
             catch(Exception ex)
             {

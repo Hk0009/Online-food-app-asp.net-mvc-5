@@ -17,7 +17,5 @@ namespace Prectice1.Models
         public int Id { get; set; }
         public Nullable<int> UserId { get; set; }
         public string Role1 { get; set; }
-    
-        public virtual Login Login { get; set; }
     }
 }

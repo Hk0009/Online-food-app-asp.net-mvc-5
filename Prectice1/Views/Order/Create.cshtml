@@ -3,8 +3,10 @@
 @{
     ViewBag.Title = "Create";
 }
-
-<h2>Create</h2>
+@if (ViewBag.Message == "Order Placed Sucessfully")
+{
+<h2><a class="btn btn-success">Order Placed Sucessfully</a></h2>
+}
 
 
 @if (ViewBag.Message == "Please add Personal Information for Cart")
@@ -23,3 +25,4 @@
         <a href='@Url.Action("Index", "Product")' class="btn btn-primary">To add detail to cart</a>
     </td>
 }
+
