@@ -77,15 +77,15 @@ namespace Prectice1.Controllers
 
                 Console.WriteLine(ex.Message);
             }
-           return RedirectToAction("Create","Product");
+           return RedirectToAction("Index","Restaurant");
         }
       
-        public ViewResult Edit(int id)
+        public ActionResult Edit(int id)
         {
             try
             {
                 var restaurantEdit = _restaurantCategoryService.getId(id);
-                return View(restaurantEdit);
+                return PartialView("EditCategoryPartialView", restaurantEdit);
             }
             catch (Exception ex)
             {
@@ -101,13 +101,16 @@ namespace Prectice1.Controllers
             try
             {
                 var restaurantCategoryEdit = _restaurantCategoryService.edit(id, foodCategory);
+               
+            
             }
             catch (Exception)
             {
 
                 throw;
             }
-            return RedirectToAction("Index");
+            return PartialView("EditCategoryPartialView");
+            return RedirectToAction("Details");
         }
 
         public ActionResult Details(int id)

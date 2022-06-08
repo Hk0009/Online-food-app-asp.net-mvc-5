@@ -38,39 +38,82 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProductName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Price)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Quantity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ImageUrl)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Date)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FoodCategory.CategoryName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.RestaurantInfo.RestaurantName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id = item.ProductID }) |
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.ProductName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Quantity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImageUrl)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FoodCategory.CategoryName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RestaurantInfo.RestaurantName)
+            </td>
+            <td>
+                <a href="#" class="btn btn-success" onclick="Edit(@item.ProductID)">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a>|
+                @* @Html.ActionLink("Details", "Details", new { id = item.RestaurantInfos.RestaurantID }) |*@
 
-            @Html.ActionLink("Delete", "Delete", new { id = item.ProductID })|
-            @Html.ActionLink("Create", "Create", new { id = item.CategoryId })
-        </td>
-    </tr>
-}
+                <a href='@Url.Action("Delete", new {id = @item.ProductID})' class="btn btn-danger" onclick="return confirm('Are you sure want to delete?');">
+                    <i class="glyphicon glyphicon-trash"></i>
+                </a>|
+                <a href='@Url.Action("Create","Product", new {id = @item.CategoryId})' class="btn btn-primary" onclick="return confirm ('Are you sure! You want to redirect to Create Category?');">
+                    Create Product
+                </a>
+            </td>
+        </tr>
+    }
 
+
+    <div class="modal fade" id="myModal1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <a href="#" class="close" data-dismiss="modal">&times;</a>
+                    <h3 class="modal-title">Edit Restaurant</h3>
+                </div>
+                <div class="modal-body" id="myModalBodyDiv1">
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <input type="hidden" id="hiddenRestaurantId" />
+    </div>
 </table>
+
+<script>
+
+    var Edit = function (productId) {
+
+        var url = "/Product/Edit/" + productId;
+
+        $("#myModalBodyDiv1").load(url, function () {
+            $("#myModal1").modal("show");
+
+        })
+
+    }
+</script>

@@ -15,14 +15,7 @@
     <td>
         <a href='@Url.Action("Create", "Restaurant")' class="btn btn-primary">Create New</a>
     </td>
-    <td>
-        <a href='@Url.Action("Index", "RestaurantCategory")' class="btn btn-success">Category</a>
-    </td>
-    <td>
-        <a href='@Url.Action("Index", "Product")' class="btn btn-info">Product</a>
-    </td>
     
-
 </p>
 
 <table class="table">
@@ -77,7 +70,7 @@
             </td>
 
             <td>
-                <a href="#" id="btnExpand" class="p">@item.RestaurantInfos.RestaurantName</a>
+                @*<a href="#" id="btnExpand" class="p">@item.RestaurantInfos.RestaurantName</a>
                 <div style="display:none">
                     <table class="table">
                         <tr>
@@ -95,8 +88,8 @@
                             </tr>
                         }
                     </table>
-                </div>
-                @* @Html.DisplayFor(modelItem => item.RestaurantInfos.RestaurantName)*@
+                </div>*@
+                 @Html.DisplayFor(modelItem => item.RestaurantInfos.RestaurantName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.RestaurantInfos.Contact)
@@ -114,7 +107,7 @@
                     <i class="glyphicon glyphicon-trash"></i>
                 </a>|
                 <a href='@Url.Action("Details","RestaurantCategory", new {id = @item.RestaurantInfos.RestaurantID})' class="btn btn-primary" onclick="return confirm ('Are you sure want to redirect to Category?');">
-                    <i class="glyphicon glyphicon-list-alt"></i>
+                    Go To Categories
                 </a>
 
             </td>
@@ -125,26 +118,26 @@
 
     @*<a href="#" class="btn btn-primary" onclick="Edit(0)">New1</a>*@
 
-    <div class="modal fade" id="myModal1">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <a href="#" class="close" data-dismiss="modal">&times;</a>
-                    <h3 class="modal-title">Edit Restaurant</h3>
-                </div>
-                <div class="modal-body" id="myModalBodyDiv1">
+<div class="modal fade" id="myModal1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <a href="#" class="close" data-dismiss="modal">&times;</a>
+                <h3 class="modal-title">Edit Restaurant</h3>
+            </div>
+            <div class="modal-body" id="myModalBodyDiv1">
 
-
-
-                </div>
 
 
             </div>
 
+
         </div>
 
-        <input type="hidden" id="hiddenRestaurantId" />
+    </div>
 
+    <input type="hidden" id="hiddenRestaurantId" />
+</div>
 </table>
 
 

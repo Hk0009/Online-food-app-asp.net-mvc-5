@@ -47,7 +47,7 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult SignUp(Login login)
+        public ActionResult SignUp(UserLogin login)
         {
             /* using (var context = new foodieEntities1())
              {
@@ -56,7 +56,15 @@ namespace Prectice1.Controllers
              }*/
             try
             {
-                var userSignup = loginService.SignUp(login);
+                if (login.Password == login.ConfirmPassword)
+                {
+                    var userSignup = loginService.SignUp(login);
+                }
+                else
+                {
+                    ViewBag.Message = "Password and confirm password Doesnt match";
+                    return View();
+                }
             }
             catch (Exception ex)
             {

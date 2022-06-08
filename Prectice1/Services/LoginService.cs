@@ -19,11 +19,14 @@ namespace Prectice1.Services
 
             return null;
         }
-        public Login SignUp(Login SignUp)
+        public Login SignUp(UserLogin SignUp)
         {
+            Login signup = new Login();
             try
             {
-                Login signup = new Login();
+               
+                
+
                 signup.UserName = SignUp.UserName;
                 signup.Password = SignUp.Password;
 
@@ -36,7 +39,7 @@ namespace Prectice1.Services
 
                 Console.WriteLine(ex.Message);
             }
-            return SignUp;
+            return signup;
             
         }
     }

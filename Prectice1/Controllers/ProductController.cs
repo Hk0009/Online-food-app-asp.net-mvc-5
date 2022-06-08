@@ -58,7 +58,7 @@ namespace Prectice1.Controllers
                         productCreate.RestaurantID = resId;
                         _productContext.Products.Add(productCreate);
                         _productContext.SaveChanges();
-                        return RedirectToAction("Index", "Restaurant");
+                        return RedirectToAction("Details", "Product");
                     }
                     else
                     {
@@ -106,10 +106,19 @@ namespace Prectice1.Controllers
 
 
         }
-        public ViewResult Edit(int id)
+        public ActionResult Edit(int id)
         {
-            var restaurantEdit = _productServices.getById(id);
-            return View(restaurantEdit);
+            try
+            {
+                var restaurantEdit = _productServices.getById(id);
+                return PartialView("EditProductPartialView", restaurantEdit);
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+            }
+            return PartialView("EditProductPartialView");
         }
         [HttpPost]
         public ActionResult Edit(int id, Product product)
@@ -144,7 +153,7 @@ namespace Prectice1.Controllers
 
                 ViewBag.Message = ex.Message;
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Restaurant");
         }
         
 

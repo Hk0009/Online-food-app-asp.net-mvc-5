@@ -296,6 +296,8 @@
     <Content Include="Views\RestaurantCategory\Details.cshtml" />
     <Content Include="Views\Product\Details.cshtml" />
     <Content Include="Views\User\Create.cshtml" />
+    <Content Include="Views\RestaurantCategory\EditCategoryPartialView.cshtml" />
+    <Content Include="Views\Product\EditProductPartialView.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Photoes\" />

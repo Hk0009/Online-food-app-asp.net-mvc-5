@@ -10,15 +10,21 @@ namespace Prectice1.CustomModels
     {
         
         public int PersonlId { get; set; }
-        [Required]
+        [Required(ErrorMessage ="Person Name is Required")]
+        [Display(Name = "Person Name")]
+        [StringLength(60)]
         public string PersonName { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Mobile No is Required")]
+        [Display(Name = "Mobile Number")]
         public string Mobile_No { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Alternate Number is Required")]
+        [Display(Name = "Alternate Number")]
         public string Contact { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Address is Required")]
+        [Display(Name = "Address")]
         public string Adress { get; set; }
-        [Required]
+        [Required(ErrorMessage = "Pin Code is Required")]
+        [Display(Name = "PIN Code")]
         public Nullable<int> Pincode { get; set; }
     }
 }
