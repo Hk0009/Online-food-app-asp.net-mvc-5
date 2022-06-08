@@ -15,7 +15,7 @@ namespace Prectice1.CustomModels
 
         [Required(ErrorMessage = "Please enter Valid Phone number")]
         [Display(Name = "Phone Number")]
-        [Phone]
+        [Phone(ErrorMessage ="Pease Enter Only integer values")]
         public string Contact { get; set; }
         [Required]
         [Display(Name = "Description")]
