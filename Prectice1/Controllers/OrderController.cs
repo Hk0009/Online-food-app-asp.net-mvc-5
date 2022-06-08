@@ -50,6 +50,7 @@ namespace Prectice1.Controllers
                     order.Date = DateTime.Now;
                     _orderContext.Order1.Add(order);
                     _orderContext.SaveChanges();
+                    _orderContext.Order1.Find();
                     ViewBag.Message = "Order Placed Sucessfully"; 
                 }
                 else

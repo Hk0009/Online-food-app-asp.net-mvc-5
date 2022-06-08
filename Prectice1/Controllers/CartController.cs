@@ -27,13 +27,10 @@ namespace Prectice1.Controllers
         }
        
        
-        public ActionResult Create(int id,int pid)
+        public ActionResult Create(int id=0,int pid=0)
         {
             try
-            {
-
-
-                
+            {   
                     var cartCreate = _cartServices.Create( pid);
                     PersonalInfo personalID = (PersonalInfo)Session["PersonalId"];
                 if (personalID == null)
@@ -41,11 +38,11 @@ namespace Prectice1.Controllers
                    
                     return RedirectToAction("Create", "PersonalInfo");
                 }
+                 
                 cartCreate.PersonlId = personalID.PersonlId;
                 
                     foodieEntities1.carts.Add(cartCreate);
                     foodieEntities1.SaveChanges();
-
                 return RedirectToAction("RestaurantProduct","User", new { id = id });  
                
                 

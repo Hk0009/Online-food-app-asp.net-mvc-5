@@ -26,7 +26,7 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Login(UserLogin login)
+        public ActionResult Login(UserLogin login,string ReturnUrl = "")
         {
             //Persistent cookies are stored on a user's device to hold usage information, settings, personalizations, or sign-on credentials
             bool isValid = foodieEntities1.Logins.Any(x => x.UserName == login.UserName && x.Password == login.Password  );
@@ -36,8 +36,17 @@ namespace Prectice1.Controllers
             if(isValid)
             {
                 FormsAuthentication.SetAuthCookie(login.UserName,false);
-                return RedirectToAction("Index", "Restaurant");
+                if(logindetails.UserId==1)
+                {
+                    return RedirectToAction("Index", "Restaurant");
+                }
+                if(logindetails.UserId==2)
+                {
+                    return RedirectToAction("Create", "PersonalInfo");
+                }
+                
             }
+           
             ModelState.AddModelError("", "Invaid username and password");
             return RedirectToAction("Index", "Restaurant");
 
@@ -65,6 +74,7 @@ namespace Prectice1.Controllers
                     ViewBag.Message = "Password and confirm password Doesnt match";
                     return View();
                 }
+
             }
             catch (Exception ex)
             {

@@ -36,7 +36,7 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(ProductViewModel product,HttpPostedFileBase ImageFile,int id)
+        public ActionResult Create(ProductViewModel product,HttpPostedFileBase ImageFile,int id=0)
         {
             try
 
@@ -58,7 +58,8 @@ namespace Prectice1.Controllers
                         productCreate.RestaurantID = resId;
                         _productContext.Products.Add(productCreate);
                         _productContext.SaveChanges();
-                        return RedirectToAction("Details", "Product");
+                        
+                        return RedirectToAction("Details", "Product", new {id=id});
                     }
                     else
                     {
@@ -135,7 +136,7 @@ namespace Prectice1.Controllers
             }
             return RedirectToAction("Index");
         }
-        public ActionResult Delete(int id)
+        public ActionResult Delete(int id,int cid)
         {
             try
             {
@@ -153,7 +154,7 @@ namespace Prectice1.Controllers
 
                 ViewBag.Message = ex.Message;
             }
-            return RedirectToAction("Index","Restaurant");
+            return RedirectToAction("Details", "Product", new {id=cid});
         }
         
 

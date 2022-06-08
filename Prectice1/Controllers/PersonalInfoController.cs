@@ -53,6 +53,7 @@ namespace Prectice1.Controllers
             return RedirectToAction("Index", "PersonalInfo");
 
         }
+        [Authorize(Roles ="User")]
         public ViewResult Create()
         {
              return View(); 

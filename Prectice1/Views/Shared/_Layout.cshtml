@@ -30,18 +30,22 @@
                         if (User.IsInRole("admin"))
                         {
                             <li>@Html.ActionLink("Restaurant", "Index", "Restaurant")</li>
-                           
+
                         }
                         if (User.IsInRole("User"))
                         {
                             <li>@Html.ActionLink("Click here to order", "Create", "PersonalInfo")</li>
+
                         }
                         <li><a>Dear -@User.Identity.Name</a></li>
 
 
                         <li>@Html.ActionLink("Logout", "Logout", "Auth")</li>
                     }
+                    else
+                    {
                     <li>@Html.ActionLink("Login", "Login", "Auth")</li>
+                    }
                 </ul>
             </div>
         </div>

@@ -71,10 +71,10 @@
                 </a>|
                 @* @Html.ActionLink("Details", "Details", new { id = item.RestaurantInfos.RestaurantID }) |*@
 
-                <a href='@Url.Action("Delete", new {id = @item.ProductID})' class="btn btn-danger" onclick="return confirm('Are you sure want to delete?');">
+                <a href='@Url.Action("Delete", new {id = @item.ProductID,cid=item.CategoryId})' class="btn btn-danger" onclick="return confirm('Are you sure want to delete?');">
                     <i class="glyphicon glyphicon-trash"></i>
                 </a>|
-                <a href='@Url.Action("Create","Product", new {id = @item.CategoryId})' class="btn btn-primary" onclick="return confirm ('Are you sure! You want to redirect to Create Category?');">
+                <a href='@Url.Action("Create","Product", new {id = @item.CategoryId})' class="btn btn-primary" onclick="return confirm ('Are you sure! You want to redirect to Create Product?');">
                     Create Product
                 </a>
             </td>

@@ -29,7 +29,7 @@ namespace Prectice1.Controllers
             return View();
         }
         [HttpPost]
-        public ActionResult Create(FoodCategoryViewModel foodCategory,HttpPostedFileBase ImageFile, int id)
+        public ActionResult Create(FoodCategoryViewModel foodCategory,HttpPostedFileBase ImageFile, int id=0)
         {
             try
             {
@@ -43,9 +43,10 @@ namespace Prectice1.Controllers
                     if(restaurantId == null)
                     {
                         createFoodCategory.RestaurantID = id;
+                        var ID = createFoodCategory.CategoryId;
                         _categoryContext.FoodCategories.Add(createFoodCategory);
                         _categoryContext.SaveChanges();
-                        return RedirectToAction("Index", "Restaurant");
+                        return RedirectToAction("Details", "RestaurantCategory", new {id=id});
                     }
                     else
                     {
@@ -109,8 +110,8 @@ namespace Prectice1.Controllers
 
                 throw;
             }
-            return PartialView("EditCategoryPartialView");
-            return RedirectToAction("Details");
+          
+            return RedirectToAction("Details", new{id=id});
         }
 
         public ActionResult Details(int id)
